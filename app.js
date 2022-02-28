@@ -3,6 +3,7 @@ const connect = require('./models/index');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
+const userRouter = require('./schemas/user');
 require('dotenv').config();
 
 connect();
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-
+app.use('/user', [userRouter]);
 
 app.listen(port, () => {
     console.log(port, '포트로 서버가 켜졌습니다.');
