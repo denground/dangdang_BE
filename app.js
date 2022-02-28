@@ -1,5 +1,5 @@
 const express = require('express');
-const connect = require('./models/index');
+const connect = require('./schemas/index');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
