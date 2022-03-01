@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use('/api', [mapRouter, userRouter, guideRouter, profileRouter]);
+app.use('/api', [userRouter, guideRouter, profileRouter, mapRouter]);
 
 app.listen(port, () => {
   console.log(port, '포트로 서버가 켜졌습니다.');
