@@ -10,7 +10,6 @@ require("dotenv").config();
 // 회원가입 router
 router.post("/users/signup", async (req, res) => {
     try {
-        const { userID, email, nickname, password, confirmPassword } = req.body;
         // Joi
         const userSchema = Joi.object({
             userID: Joi.string()
@@ -25,14 +24,10 @@ router.post("/users/signup", async (req, res) => {
                 .required(),
             confirmPassword: Joi.ref("password"),
         });
+
         // 형식확인
-        const result = userSchema.validate({
-            userID,
-            email,
-            nickname,
-            password,
-            confirmPassword,
-        });
+        const { userID, email, nickname, password, confirmPassword } = await userSchema.validateAsync(req.body);
+
         if (password !== confirmPassword) {
             return res.status(400).json({
                 fail: "비밀번호가 다르게 입력됐습니다.",
