@@ -3,10 +3,10 @@ const connect = require('./schemas/index');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
-const userRouter = require('./schemas/user');
-const guideRouter = require('./schemas/guide');
-const profileRouter = require('./schemas/profile');
-const mapRouter = require('./schemas/map');
+const userRouter = require('./routes/user');
+const guideRouter = require('./routes/guide');
+const profileRouter = require('./routes/profile');
+const mapRouter = require('./routes/map');
 require('dotenv').config();
 
 connect();
