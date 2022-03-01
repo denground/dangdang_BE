@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const { userId } = jwt.verify(tokenValue, process.env.PRIVATE_KEY);
+    const { userId } = jwt.verify(tokenValue, `${process.env.PRIVATE_KEY}`);
 
     User.findOne({ userId })
       .exec()
