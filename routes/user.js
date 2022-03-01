@@ -75,7 +75,7 @@ router.post("/users/signup", async (req, res) => {
         await User.create({
             userID: userID,
             email: email,
-            nickname : nickname,
+            nickname: nickname,
             // password 암호화된 비밀번호 입력
             password: encrypted,
             email: email,
@@ -172,9 +172,9 @@ router.post("/users/login", async (req, res) => {
 // 회원인증 router
 router.get("/users/auth", authMiddleWare, async (req, res) => {
     const { user } = res.locals;
-    console.log(user);
     res.send({
-        user,
+        userID: user.userID,
+        nickname: user.nickname,
     });
 });
 
