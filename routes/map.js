@@ -13,3 +13,5 @@ try {
 } catch (err) {
   res.json({ fail: '정보를 다시 확인해주세요.' });
 }
+
+module.exports = router;
