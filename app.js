@@ -39,7 +39,6 @@ app.use((req, res, next) => {
     origin: "http://localhost:3000",
     credentials: true,
   }));
-  app.disable("x-powered-by");
   app.use(helmet());
   
   app.use('/api', [userRouter, guideRouter, profileRouter, mapRouter]);
