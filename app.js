@@ -8,7 +8,7 @@ const userRouter = require('./routes/user');
 const guideRouter = require('./routes/guide');
 const profileRouter = require('./routes/profile');
 const mapRouter = require('./routes/map');
-const emailRouter = requier('./routes/email');
+const emailRouter = require('./routes/email');
 
 require('dotenv').config();
 
