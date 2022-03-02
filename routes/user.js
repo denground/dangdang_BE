@@ -114,7 +114,7 @@ router.post("/users/social", async (req, res) => {
 
     res.send({
         success: `${user.nickname}님 환영합니다!🐶`,
-        token: jwt.sign({ nickname: user.nickname }, process.env.PRIVATE_KEY),
+        token: jwt.sign({ nickname: user.nickname }, process.env.TOKEN_SECRET_KEY),
     });
 });
 
