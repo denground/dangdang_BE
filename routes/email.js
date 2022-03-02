@@ -12,7 +12,7 @@ router.post('/users/find', async (req, res) => {
 
         // 이메일 입력없으면 400메세지
         if (!email) return res.status(400).json({
-            errorMessage: '이메일을 입력해주세요.'
+            fail: '이메일을 입력해주세요.'
         })
 
         // 메일을 보내는 gmail 계정
@@ -47,7 +47,7 @@ router.post('/users/find', async (req, res) => {
             // password 찾기
             if (user.userID !== userID) {
                 return res.status(400).json({
-                    errorMessage: '가입한 아이디 이메일을 입력해주세요.'
+                    fail: '가입한 아이디 이메일을 입력해주세요.'
                 })
             } else {
                 // Password 복호화
@@ -82,12 +82,12 @@ router.post('/users/find', async (req, res) => {
         })
 
         res.status(200).json({
-            msg: '메일 전송완료!'
+            success: '메일 전송완료!'
         })
 
     } catch (err) {
         res.status(400).json({
-            errorMessage: '다시 입력해주세요.'
+            fail: '다시 입력해주세요.'
         })
     }
 })
