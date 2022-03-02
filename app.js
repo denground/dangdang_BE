@@ -12,14 +12,6 @@ const emailRouter = require('./routes/email');
 
 require('dotenv').config();
 
-connect();
-
-app.use(helmet());
-app.use(cors({ 
-  origin: "http://localhost:3000",
-  credentials: true
-}));
-
 app.use((req, res, next) => {
   console.log(
     'Request URL:',
@@ -31,6 +23,13 @@ app.use((req, res, next) => {
   next();
 });
 
+connect();
+
+app.use(cors({ 
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+app.use(helmet());
 
 app.use('/api', [userRouter, guideRouter, profileRouter, mapRouter, emailRouter]);
 app.use(express.json());
