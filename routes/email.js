@@ -53,7 +53,6 @@ router.post('/users/find', async (req, res) => {
                 // Password 복호화
                 const bytes = CryptoJS.AES.decrypt(user.password, process.env.PRIVATE_KEY)
                 const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-                console.log(decrypted)
                 // 전송할 email 내용 작성
                 mailOptions = {
                     from: EMAIL,
