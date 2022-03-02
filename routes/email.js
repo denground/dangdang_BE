@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
-const User = require('../schemas/User')
+const User = require('../schemas/user')
 const CryptoJS = require("crypto-js");
 
 
