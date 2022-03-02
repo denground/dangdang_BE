@@ -16,8 +16,8 @@ const mapRouter = require('./routes/map');
 require('dotenv').config();
 
 const options = {
-  key: fs.readFileSync('./rootca.key'),
-  cert: fs.readFileSync('./rootca.crt')
+  key: fs.readFileSync('../rootca.key'),
+  cert: fs.readFileSync('../rootca.crt')
 }
 
 connect();
