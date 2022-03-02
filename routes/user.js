@@ -26,7 +26,8 @@ router.post("/users/signup", async (req, res) => {
         });
 
         // 형식확인
-        const { userID, email, nickname, password, confirmPassword } = await userSchema.validateAsync(req.body);
+        const { userID, email, nickname, password, confirmPassword } =
+            await userSchema.validateAsync(req.body);
 
         if (password !== confirmPassword) {
             return res.status(400).json({
@@ -109,12 +110,18 @@ router.post("/users/signup", async (req, res) => {
 router.post("/users/social", async (req, res) => {
     const { email, nickname } = req.body;
 
-    const user = new User({ email, nickname });
-    await user.save();
+    const user = await User.findOne({ email, nickname });
+    if (!user) {
+        await User.create({ email: email, nickname: nickname });
+    }
 
+    const token = jwt.sign(
+        { nickname: user.nickname },
+        process.env.TOKEN_SECRET_KEY
+    );
     res.send({
         success: `${user.nickname}님 환영합니다!🐶`,
-        token: jwt.sign({ nickname: user.nickname }, process.env.TOKEN_SECRET_KEY),
+        token,
     });
 });
 
