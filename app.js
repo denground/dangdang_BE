@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ 
-  origin: "http://localhost:4200",
+  origin: "http://localhost:3000",
   credentials: true
 }));
 
