@@ -15,6 +15,11 @@ require('dotenv').config();
 connect();
 
 app.use(helmet());
+app.use(cors({ 
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+
 app.use((req, res, next) => {
   console.log(
     'Request URL:',
@@ -26,14 +31,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cors({ 
-  origin: "http://localhost:3000",
-  credentials: true
-}));
 
 app.use('/api', [userRouter, guideRouter, profileRouter, mapRouter, emailRouter]);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.listen(port, () => {
   console.log(port, '포트로 서버가 켜졌습니다.');
