@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   });
   
   https.createServer(options, app).listen(443, () => {
-    console.log(433, '포트로 서버가 켜졌습니다.');
+    console.log(https_port, '포트로 서버가 켜졌습니다.');
   })
 
   // app.listen(port, () => {
