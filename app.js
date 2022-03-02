@@ -2,11 +2,13 @@ const express = require('express');
 const connect = require('./schemas/index');
 const cors = require('cors');
 const app = express();
+const helmet = require('helmet')
 const port = process.env.PORT;
 const userRouter = require('./routes/user');
 const guideRouter = require('./routes/guide');
 const profileRouter = require('./routes/profile');
 const mapRouter = require('./routes/map');
+
 require('dotenv').config();
 
 connect();
@@ -25,6 +27,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(helmet());
 
 app.use('/api', [userRouter, guideRouter, profileRouter, mapRouter]);
 
