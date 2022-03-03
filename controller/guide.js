@@ -1,6 +1,6 @@
 const Guide = require('../schemas/guide');
 
-exports.guidMain = async (req, res) => {
+exports.guideMain = async (req, res) => {
   // 게시글 데이터 추가가 필요할 경우 사용
   // await Guide.create({
   //     guideTitle: '강아지와 훈련??',
@@ -29,7 +29,7 @@ exports.guidMain = async (req, res) => {
   });
 };
 
-exports.guidDetail = async (req, res) => {
+exports.guideDetail = async (req, res) => {
   // url 값 가져오기
   const _id = req.params.postNumber;
   console.log(_id);
