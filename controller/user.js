@@ -70,7 +70,6 @@ exports.userSignup = async (req, res) => {
       nickname: nickname,
       // password 암호화된 비밀번호 입력
       password: encrypted,
-      email: email,
     });
 
     res.status(200).json({
