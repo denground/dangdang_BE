@@ -9,23 +9,14 @@ exports.guideMain = async (req, res) => {
   // })
 
   // Guide 스키마에 있는 정보 추출
-  const guide = await Guide.find({});
+  const guide = await Guide.find({}, { guideContent: false });
   // for (let i = 0; i < guide.length; i++) {
   //     let title = guide[i].guideTitle
   //     let image = guide[i].guideImage
   //     console.log('title : ', title, 'image : ', image)
   // }
-  const guide_it = guide.map((item) => {
-    return {
-      postNumber: item._id,
-      title: item.guideTitle,
-      image: item.guideImage,
-    };
-  });
-
-  console.log(guide_it);
   res.status(200).json({
-    guide_it,
+    guide,
   });
 };
 
