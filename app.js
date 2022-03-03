@@ -31,7 +31,6 @@ app.use(
         credentials: true,
     })
 );
-app.disable("x-powered-by");
 app.use(helmet());
 
 app.use("/api", [userRouter, guideRouter, profileRouter, mapRouter]);
