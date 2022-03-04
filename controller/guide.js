@@ -24,7 +24,7 @@ exports.guideMain = async (req, res, next) => {
   }
 };
 
-exports.guideDetail = async (req, res) => {
+exports.guideDetail = async (req, res, next) => {
   try {
     const guide = await Guide.findById(req.params.postNumber);
     res.status(200).json(guide);
