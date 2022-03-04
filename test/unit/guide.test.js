@@ -1,7 +1,6 @@
 const guideController = require('../../controller/guide');
 const guideModel = require('../../schemas/guide');
 const httpMocks = require('node-mocks-http');
-const allGuide = require('../data/all-guide.json');
 
 const postNumber = 'testCode';
 
