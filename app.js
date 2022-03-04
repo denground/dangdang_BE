@@ -1,3 +1,6 @@
+const fs = require("fs");
+const http = require("http");
+const https = require("https");
 const express = require("express");
 const connect = require("./schemas/index");
 const cors = require("cors");
@@ -10,6 +13,17 @@ const profileRouter = require("./routes/profile");
 const mapRouter = require("./routes/map");
 const emailRouter = require("./routes/email");
 require("dotenv").config();
+
+const options = { // letsencrypt로 받은 인증서 경로를 입력
+    ca: fs.readFileSync("/etc/letsencrypt/live/dengroundserver.com/fullchain.pem"),
+    key: fs.readFileSync("/etc/letsencrypt/live/dengroundserver.com/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/dengroundserver.com/cert.pem")
+};
+
+http.createServer(app).listen(4200);
+https.createServer(options, app).listen(443, () => {
+    console.log(port, "포트로 서버가 켜졌습니다.");
+});
 
 connect();
 
@@ -32,6 +46,6 @@ app.use(helmet());
 
 app.use("/api", [userRouter, guideRouter, profileRouter, mapRouter, emailRouter]);
 
-app.listen(port, () => {
-    console.log(port, "포트로 서버가 켜졌습니다.");
-});
+// app.listen(port, () => {
+//     console.log(port, "포트로 서버가 켜졌습니다.");
+// });
