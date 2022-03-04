@@ -1,7 +1,5 @@
-const { CodeGuruProfiler } = require('aws-sdk');
 const Map = require('../schemas/map');
 const Profile = require('../schemas/profile');
-const oneprofile = require('../test/data/one-profile.json');
 // description update, 반려동물 사진 보내주기, 산책 정보 저장 要
 
 exports.updateMap = async (req, res, next) => {
@@ -38,7 +36,7 @@ exports.showImage = async (req, res, next) => {
   }
 };
 
-exports.saveMap = async (req, res) => {
+exports.saveMap = async (req, res, next) => {
   const { time, distance } = req.body;
   const { user } = res.locals;
   try {
@@ -48,7 +46,7 @@ exports.saveMap = async (req, res) => {
       distance,
       userID: user.userID,
     });
-    res.status(200).send({ success: '산책 정보가 저장되었습니다.' });
+    res.status(200).json({ success: '산책 정보가 저장되었습니다.' });
   } catch (error) {
     res.status(400).send({ fail: '정보 저장에 실패하였습니다.' });
     next(error);

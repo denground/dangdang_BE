@@ -4,16 +4,13 @@ const mapModel = require('../../schemas/map');
 const profileModel = require('../../schemas/profile');
 const httpMocks = require('node-mocks-http');
 const oneprofile = require('../data/one-profile.json');
-const map = require('../../schemas/map');
-
-const postNumber = 'testCode';
+const onemap = require('../data/one-map.json');
 
 mapModel.find = jest.fn();
 mapModel.findOne = jest.fn();
 profileModel.findOne = jest.fn();
 mapModel.findOneAndUpdate = jest.fn();
-
-const mapImage = { mapImage: 'test' };
+mapModel.create = jest.fn();
 
 const updatedMap = {
   description: 'updated description',
@@ -28,9 +25,6 @@ beforeEach(() => {
 });
 
 describe('Map Controller Update', () => {
-  //   beforeEach(() => {
-  //     req.body = { mapImage, updatedMap };
-  //   });
   test('should have an updateMap function', async () => {
     expect(typeof mapController.updateMap).toBe('function');
   });
@@ -83,5 +77,31 @@ describe('Map Controller GET', () => {
     profileModel.findOne.mockReturnValue(rejectedPromise);
     await mapController.showImage(req, res, next);
     expect(next).toHaveBeenCalledWith(errorMessage);
+  });
+});
+
+describe('Map Controller Create', () => {
+  beforeEach(() => {
+    req.body = onemap;
+  });
+  test('should have a createMap function', () => {
+    expect(typeof mapController.saveMap).toBe('function');
+  });
+  test('should return status Code 200', async () => {
+    await mapController.saveMap(req, res, next);
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+  });
+  test('should return json body in response', async () => {
+    mapModel.create.mockReturnValue(onemap);
+    await mapController.saveMap(req, res, next);
+    expect(res._getJSONData()).toStrictEqual(onemap);
+  });
+  test('should handle error', async () => {
+    const errorMessage = { message: 'Error' };
+    const rejectedPromise = Promise.reject(errorMessage);
+    mapModel.create.mockReturnValue(rejectedPromise);
+    await mapController.saveMap(req, res, next);
+    expect(next).toBeCalledWith(errorMessage);
   });
 });
