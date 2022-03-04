@@ -1,4 +1,3 @@
-// description update, 산책일지 전체 조회, 반려동물 사진 보내주기, 산책 정보 저장 要
 const mapController = require('../../controller/map');
 const mapModel = require('../../schemas/map');
 const profileModel = require('../../schemas/profile');
