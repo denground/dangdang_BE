@@ -24,8 +24,6 @@ describe('Profile Controller Create', () => {
     await profileController.savedog(req, res, next);
     expect(profileModel.create).toBeTruthy();
   });
-  /* 테스트코드는 통과한다쳐도 실제 코드는 어떻게? */
-  /* 프론트로부터 req 받아야 되는데 받는게 없음 */
   test('should return status 200', async () => {
     await profileController.savedog(req, res, next);
     expect(res.statusCode).toBe(200);
