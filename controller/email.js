@@ -34,7 +34,7 @@ exports.sendEmail = async (req, res, next) => {
         from: EMAIL,
         to: receiverEmail,
         subject: '찾으시는 ID 입니다.',
-        html: `<h1>회원님의 아이디는 ${user.userID} 입니다.</h1>`,
+        text: `<h1>회원님의 아이디는 ${user.userID} 입니다.</h1>`,
       };
     }
 
@@ -57,7 +57,7 @@ exports.sendEmail = async (req, res, next) => {
           from: EMAIL,
           to: receiverEmail,
           subject: '찾으시는 PASSWORD 입니다..',
-          html: `<h1>${user.userID}님의 비밀번호는 ${decrypted} 입니다.</h1>`,
+          text: `<h1>${user.userID}님의 비밀번호는 ${decrypted} 입니다.</h1>`,
         };
       }
     }
