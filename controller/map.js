@@ -1,6 +1,5 @@
 const Map = require('../schemas/map');
 const Profile = require('../schemas/profile');
-// description update, 반려동물 사진 보내주기, 산책 정보 저장 要
 
 exports.updateMap = async (req, res, next) => {
   const { mapImage, description } = req.body;
