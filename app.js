@@ -1,5 +1,4 @@
 const fs = require("fs");
-const http = require("http");
 const https = require("https");
 const express = require("express");
 const connect = require("./schemas/index");
@@ -23,7 +22,6 @@ const options = { // letsencrypt로 받은 인증서 경로를 입력
     cert: fs.readFileSync("/etc/letsencrypt/live/dengroundserver.com/cert.pem")
 };
 
-http.createServer(app).listen(4200);
 https.createServer(options, app).listen(443, () => {
     console.log(port, "포트로 서버가 켜졌습니다.");
 });
