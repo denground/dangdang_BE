@@ -1,4 +1,4 @@
-const Map = require('../schemas/map');
+const Maps = require('../schemas/map');
 const Profile = require('../schemas/profile');
 
 exports.showImage = async (req, res, next) => {
@@ -19,7 +19,7 @@ exports.saveMap = async (req, res, next) => {
     const { path, time, distance } = req.body;
     const { user } = res.locals;
     try {
-        await Map.create({
+        await Maps.create({
             path,
             time,
             distance,
