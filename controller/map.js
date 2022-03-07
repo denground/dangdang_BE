@@ -1,26 +1,6 @@
 const Map = require('../schemas/map');
 const Profile = require('../schemas/profile');
 
-exports.updateMap = async (req, res, next) => {
-    const { mapImage, description } = req.body;
-    try {
-        let updatedMap = await Map.findOneAndUpdate(
-            { mapImage },
-            { description },
-            {
-                new: true,
-            }
-        );
-        if (updatedMap) {
-            res.status(200).json({ success: '정보가 등록되었습니다.' });
-        } else {
-            res.status(400).json({ fail: '정보를 다시 확인해주세요.' });
-        }
-    } catch (error) {
-        next(error);
-    }
-};
-
 exports.showImage = async (req, res, next) => {
     try {
         const user = res.locals;
@@ -36,11 +16,11 @@ exports.showImage = async (req, res, next) => {
 };
 
 exports.saveMap = async (req, res, next) => {
-    const { time, distance } = req.body;
+    const { path, time, distance } = req.body;
     const { user } = res.locals;
     try {
         await Map.create({
-            mapImage: req.file.location,
+            path,
             time,
             distance,
             userID: user.userID,
