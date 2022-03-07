@@ -5,10 +5,15 @@ const connect = require("./schemas/index");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT;
+// DDoS 공격 방어를 위한 제한 모듈
+const rateLimit = require("express-rate-limit");
+
 // helmet 미들웨어
 const helmet = require("helmet");
+
 // 사람이 쓰는 문자열을 밀리초로 변환해주는 모듈
 const ms = require("ms");
+
 const userRouter = require("./routes/user");
 const guideRouter = require("./routes/guide");
 const profileRouter = require("./routes/profile");
@@ -44,17 +49,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // express사용 정보 숨기기
 app.disable("x-powered-by");
+
 // cors 정책
 app.use(cors());
+
 // https로 접속했을 때 http로 가지 않게 하기 위해 약 1년간 https로 묶어둔다.
 app.use(helmet.hsts({
     maxAge: ms("1 year"),
     includeSubDomains: true
 }));
+
+// 1분동안 하나의 ip 주소에서 들어오는 request의 숫자를 100회로 제한
+app.use(rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 100
+}));
+
 // xss(교차 사이트 스크립팅) 공격 방어
 app.use(helmet.xssFilter());
+
 // 클릭재킹으로 부터 보호
 app.use(helmet.frameguard("deny"));
+
 // 브라우저에서 파일 형식의 임의 추측 금지
 app.use(helmet.noSniff());
 
