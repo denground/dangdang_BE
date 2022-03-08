@@ -4,6 +4,12 @@ const express = require("express");
 const connect = require("./schemas/index");
 const cors = require("cors");
 const app = express();
+const session = require('express-session')
+
+// passport 모듈
+const passport = require('passport')
+const passportConfig = require('./passport')
+
 const port = process.env.PORT;
 // DDoS 공격 방어를 위한 제한 모듈
 const rateLimit = require("express-rate-limit");
@@ -32,6 +38,8 @@ https.createServer(options, app).listen(443, () => {
 });
 
 connect();
+// 패스포트 연결
+passportConfig();
 
 app.use((req, res, next) => {
     console.log(
@@ -47,11 +55,27 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 // express사용 정보 숨기기
 app.disable("x-powered-by");
 
 // cors 정책
 app.use(cors());
+
+// express-session
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'session',
+    cookie: {
+        httpOnly: true,
+        secure: false,
+    }
+}))
+
+// passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 // https로 접속했을 때 http로 가지 않게 하기 위해 약 1년간 https로 묶어둔다.
 app.use(helmet.hsts({

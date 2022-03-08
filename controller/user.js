@@ -119,6 +119,7 @@ exports.socialLogin = async (req, res) => {
   });
 };
 
+// 로그인
 exports.login = async (req, res) => {
   try {
     const { userID, password } = req.body;
