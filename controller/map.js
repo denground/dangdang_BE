@@ -17,7 +17,9 @@ exports.showImage = async (req, res, next) => {
 
 exports.saveMap = async (req, res, next) => {
     const { path, time, distance } = req.body;
+    console.log(req.body);
     const { user } = res.locals;
+    console.log(res.locals);
     try {
         await Maps.create({
             path,
