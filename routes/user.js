@@ -23,7 +23,7 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     console.log("token : ", token);
     // 세션에 정보 저장
     req.session['token'] = token
-    console.log("session : ", req.session);
+    console.log("session : ", req.session["token"]);
     // res.json({
     //     msg: '카카오 로그인 성공..!',
     //     token_cookie,
