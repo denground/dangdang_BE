@@ -27,8 +27,6 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     //     token_cookie,
     // })
     res.cookie(`${process.env.COOKIE}`, token)
-    function cookie() { req }
-    res.send(`<button onclick="${cookie()}"> 메인으로 가기 </button>`)
     res.redirect('https://big-wombat-43.loca.lt/main')
 })
 
