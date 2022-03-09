@@ -4,6 +4,7 @@ const authMiddleWare = require('../middlewares/auth-middleware');
 const userController = require('../controller/user');
 const passport = require('passport')
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // 회원가입 router
 router.post('/users/signup', userController.userSignup);
