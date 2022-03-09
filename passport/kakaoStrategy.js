@@ -6,20 +6,12 @@ module.exports = (passport) => {
         clientID: process.env.CLIENTID,
         callbackURL: process.env.CALLBACKURL,
     }, async (accessToken, refreshToken, profile, done) => {
-        console.log('refreshToken ====================', refreshToken)
-        console.log('accessToken ====================', accessToken)
-        console.log('kakao profile ====================', profile)
-        console.log('============================================')
-        console.log('============================================')
-        console.log('============================================')
-
         try {
             const exUser = await User.findOne({userID: profile.id})
             const tokenUser = {
                 user: exUser,
                 accessToken: accessToken || '',
             }
-            console.log("exUser : ", exUser)
             if (exUser) {
                 done(null, tokenUser)
             } else {
