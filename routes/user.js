@@ -18,8 +18,11 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     {
         failureRedirect: '/',
     }), (req, res) => {
+    console.log("req : " + req);
+    console.log("req.user : " + req.user);
     const token = jwt.sign({userID: req.user.userID, nickname: req.user.nickname,}
         , process.env.TOKEN_SECRET_KEY)
+    console.log("token : " + token);
     // 세션에 정보 저장
     req.session['token'] = token
     // res.json({
