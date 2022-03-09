@@ -26,8 +26,8 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     //     msg: '카카오 로그인 성공..!',
     //     token_cookie,
     // })
-    res.redirect('https://big-wombat-43.loca.lt/main')
     res.cookie(`${process.env.COOKIE}`, token)
+    res.redirect('https://big-wombat-43.loca.lt/main')
 })
 
 // 로그인 router
