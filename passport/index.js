@@ -9,8 +9,8 @@ module.exports = () => {
         console.log('===========================')
         console.log('===========================')
         console.log('===========================')
-        console.log('user.id : ', user.userID, '///////////', 'accessToken : ', user.accessToken);
-        done(null, {id: user.userID, accessToken: user.accessToken})
+        console.log('user.id : ', user.user.userID, '///////////', 'accessToken : ', user.user.accessToken);
+        done(null, {id: user.user.userID, accessToken: user.user.accessToken})
     })
 
     // 매 요청마다 실행되며
