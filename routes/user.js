@@ -28,10 +28,11 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     //     msg: '카카오 로그인 성공..!',
     //     token_cookie,
     // })
-    res.cookie(`${process.env.COOKIE}`, token)
-    console.log(req.cookies);
+    // res.cookie(`${process.env.COOKIE}`, token)
+    // console.log(req.cookies);
     // console.log("Is cookie go??? : ", res.cookie.set-cookie);
-    res.redirect('https://big-wombat-43.loca.lt/main')
+    res.redirect('https://big-wombat-43.loca.lt/main').send({success: `${req.user.userID}님 환영합니다!`, token});
+    // res.send({success: `${req.user.userID}님 환영합니다!`, token});
 })
 
 // 로그인 router
