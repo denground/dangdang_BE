@@ -31,7 +31,7 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     // res.cookie(`${process.env.COOKIE}`, token)
     // console.log(req.cookies);
     // console.log("Is cookie go??? : ", res.cookie.set-cookie);
-    res.redirect('https://big-wombat-43.loca.lt/main').send({success: `${req.user.userID}님 환영합니다!`, token});
+    res.redirect('https://sour-rat-84.loca.lt/main').send({success: `${req.user.userID}님 환영합니다!`, token});
     // res.send({success: `${req.user.userID}님 환영합니다!`, token});
 })
 
