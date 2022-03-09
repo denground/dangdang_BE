@@ -28,12 +28,9 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     //     msg: '카카오 로그인 성공..!',
     //     token_cookie,
     // })
-    // res.cookie(`${process.env.COOKIE}`, token)
-    // console.log(req.cookies);
+    res.cookie(`${process.env.COOKIE}`, token)
     // console.log("Is cookie go??? : ", res.cookie.set-cookie);
-    res.redirect('https://sour-rat-84.loca.lt/main')
-    res.send({success: `${req.user.userID}님 환영합니다!`, token});
-    // res.send({success: `${req.user.userID}님 환영합니다!`, token});
+    res.redirect('https://big-wombat-43.loca.lt/main')
 })
 
 // 로그인 router
