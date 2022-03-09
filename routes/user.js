@@ -18,8 +18,6 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     {
         failureRedirect: '/',
     }), (req, res) => {
-    console.log("req : " + req);
-    console.log("req.user : " + req.user);
     const token = jwt.sign({userID: req.user.userID, nickname: req.user.nickname,}
         , process.env.TOKEN_SECRET_KEY)
     console.log("token : " + token);
