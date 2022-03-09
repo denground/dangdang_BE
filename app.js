@@ -68,7 +68,7 @@ app.use(session({
     saveUninitialized: false,
     secret: 'session',
     cookie: {
-        httpOnly: true,
+        httpOnly: false,
         secure: false,
     }
 }))
