@@ -29,7 +29,7 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
     // })
     console.log(req.session)
 
-    res.cookie(process.env.COOKIE, {token})
+    res.cookie(`${process.env.COOKIE}`, token)
     res.redirect('https://big-wombat-43.loca.lt/main')
 })
 
