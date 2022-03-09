@@ -19,14 +19,16 @@ router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
         failureRedirect: '/',
     }), (req, res) => {
     const token = jwt.sign({userID: req.user.userID, nickname: req.user.nickname,}
-        , process.env.TOKEN_SECRET_KEY)
+        , `${process.env.TOKEN_SECRET_KEY}`)
     // 세션에 정보 저장
     req.session['token'] = token
     // res.json({
     //     msg: '카카오 로그인 성공..!',
     //     token_cookie,
     // })
-    res.cookie(`${process.env.COOKIE}`, token)
+    // res.cookie(`${process.env.COOKIE}`, token)
+    function cookie() { localStorage.setItem('token',token) }
+    res.send(`<button onclick="${cookie()}"> 메인으로 가기 </button>`)
     res.redirect('https://big-wombat-43.loca.lt/main')
 })
 
