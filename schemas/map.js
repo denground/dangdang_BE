@@ -6,6 +6,9 @@ const mapsSchema = new mongoose.Schema(
             type: Array,
             required: true,
         },
+        marker: {
+            type: Array,
+        },
         time: {
             type: String,
             required: true,
