@@ -32,7 +32,7 @@ router.get(
         console.log(req.session);
 
         res.cookie(process.env.COOKIE, token);
-        res.redirect('/main');
+        res.redirect('https://quick-monkey-15.loca.lt/main');
     }
 );
 
