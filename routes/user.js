@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authMiddleWare = require('../middlewares/auth-middleware');
 const userController = require('../controller/user');
-const passport = require('passport')
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const passport = require('passport');
 
 // 회원가입 router
 router.post('/users/signup', userController.userSignup);
@@ -13,25 +11,29 @@ router.post('/users/signup', userController.userSignup);
 router.post('/users/social', userController.socialLogin);
 
 // passport-kakao Login
-router.get('/kakao', passport.authenticate('kakao-login'))
-router.get('/auth/kakao/callback', passport.authenticate('kakao-login',
-    {
+router.get('/kakao', passport.authenticate('kakao-login'));
+router.get(
+    '/auth/kakao/callback',
+    passport.authenticate('kakao-login', {
         failureRedirect: '/',
-    }), (req, res) => {
-    const token = jwt.sign({userID: req.user.userID, nickname: req.user.nickname,}
-        , `${process.env.TOKEN_SECRET_KEY}`)
-    // console.log("token : ", token);
-    // 세션에 정보 저장
-    req.session['token'] = token
-    // console.log("session : ", req.session["token"]);
-    // res.json({
-    //     msg: '카카오 로그인 성공..!',
-    //     token_cookie,
-    // })
-    res.cookie(`${process.env.COOKIE}`, token)
-    // console.log("Is cookie go??? : ", res.cookie.set-cookie);
-    res.redirect('https://big-wombat-43.loca.lt/main')
-})
+    }),
+    (req, res) => {
+        const token = jwt.sign(
+            { userID: req.user.userID, nickname: req.user.nickname },
+            process.env.TOKEN_SECRET_KEY
+        );
+        // 세션에 정보 저장
+        req.session['token'] = token;
+        // res.json({
+        //     msg: '카카오 로그인 성공..!',
+        //     token_cookie,
+        // })
+        console.log(req.session);
+
+        res.cookie(process.env.COOKIE, token);
+        res.redirect('/');
+    }
+);
 
 // 로그인 router
 router.post('/users/login', userController.login);
