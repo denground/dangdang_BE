@@ -43,6 +43,10 @@ exports.showMap = async (req, res, next) => {
             { userID: user.userID },
             { _id: true, createdAt: true, distance: true, petImage: true }
         );
+        if (!list) {
+            res.status(200).json({ success: '산책 내역이 없어요' });
+            return;
+        }
         res.status(200).json(list);
     } catch (error) {
         console.log(error);
