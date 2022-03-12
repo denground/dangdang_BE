@@ -6,7 +6,16 @@ const mapsSchema = new mongoose.Schema(
             type: Array,
             required: true,
         },
-        marker: {
+        water: {
+            type: Array,
+        },
+        yellow: {
+            type: Array,
+        },
+        brown: {
+            type: Array,
+        },
+        danger: {
             type: Array,
         },
         time: {
@@ -15,7 +24,6 @@ const mapsSchema = new mongoose.Schema(
         },
         distance: {
             type: String,
-            required: true,
         },
         userID: {
             type: String,
