@@ -32,7 +32,7 @@ router.get(
         console.log(req.session);
 
         res.cookie(process.env.COOKIE, token);
-        res.redirect('/');
+        res.redirect('/main');
     }
 );
 
