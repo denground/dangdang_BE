@@ -5,12 +5,16 @@ const guideSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    guideImage: {
+    guideTitleImage: {
+        type: String,
+        require: true,
+    },
+    guideContentImage: {
         type: String,
         require: true,
     },
     guideContent: {
-        type: String,
+        type: Array,
         require: true,
     }
 })
