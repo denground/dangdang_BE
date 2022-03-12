@@ -37,3 +37,20 @@ exports.mypageMain = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.modifyMypage = async (req, res, next) => {
+    const { user } = res.locals;
+    const { petName, petGender, petBirth, petBreed } = req.body;
+    try {
+        await Profile.updateOne(
+            { userID: user.userID },
+            { $set: { petImage: req.file.location, petName, petGender, petBirth, petBreed, } }
+        );
+        res.status(200).send({
+            success: "정보가 수정되었습니다.",
+        });
+    } catch (error) {
+        res.status(400).send({ fail: "정보를 다시 확인해주세요." });
+        next(error);
+    }
+};
