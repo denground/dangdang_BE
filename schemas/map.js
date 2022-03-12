@@ -15,7 +15,6 @@ const mapsSchema = new mongoose.Schema(
         },
         distance: {
             type: String,
-            required: true,
         },
         userID: {
             type: String,
