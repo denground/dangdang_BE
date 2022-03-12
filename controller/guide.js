@@ -10,7 +10,7 @@ exports.guideMain = async (req, res, next) => {
         // })
 
         // Guide 스키마에 있는 정보 추출
-        const guide = await Guide.find([], {guideTitle: true, guideTitleImage: true});
+        const guide = await Guide.find({}, {guideTitle: true, guideTitleImage: true});
         // for (let i = 0; i < guide.length; i++) {
         //     let title = guide[i].guideTitle
         //     let image = guide[i].guideImage
