@@ -70,6 +70,7 @@ app.use(session({
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
+        path: "https://quick-monkey-15.loca.lt/main",
         httpOnly: true,
         secure: false,
     }
