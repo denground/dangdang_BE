@@ -10,7 +10,7 @@ module.exports = () => {
 
     // 매 요청마다 실행되며
     passport.deserializeUser((id, done) => {
-        User.findOne({id})
+        User.findOne({ where: {id} })
             .then(user => {
                 done(null, user)})
             .catch(err => done(err))

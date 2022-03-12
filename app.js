@@ -4,7 +4,8 @@ const express = require("express");
 const connect = require("./schemas/index");
 const cors = require("cors");
 const app = express();
-const session = require('express-session')
+const session = require('express-session');
+const cookieParser = require("cookie-parser");
 
 // passport 모듈
 const passport = require('passport')
@@ -62,11 +63,12 @@ app.disable("x-powered-by");
 // cors 정책
 app.use(cors());
 
+app.use(cookieParser(process.env.COOKIE_SECRET))
 // express-session
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: 'session',
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
