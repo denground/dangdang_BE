@@ -5,7 +5,7 @@ const User = require('../schemas/user')
 module.exports = () => {
     // 세션에 사용자 정보 저장
     passport.serializeUser((user, done) => {
-        done(null, {id: user.user.userID, accessToken: user.accessToken})
+        done(null, {id: user.userID, accessToken: user.accessToken})
     })
 
     // 매 요청마다 실행되며
