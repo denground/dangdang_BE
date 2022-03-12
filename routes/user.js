@@ -21,7 +21,7 @@ router.get(
     (req, res) => {
         const token = jwt.sign(
             { userID: req.user.userID, nickname: req.user.nickname },
-            `${process.env.TOKEN_SECRET_KEY}`
+            process.env.TOKEN_SECRET_KEY
         );
         // 세션에 정보 저장
         req.session['token'] = token;
@@ -31,7 +31,7 @@ router.get(
         // })
         console.log(req.session);
 
-        res.cookie(`${process.env.COOKIE}`, token);
+        res.cookie(process.env.COOKIE, token);
         res.redirect('https://quick-monkey-15.loca.lt/main');
     }
 );
