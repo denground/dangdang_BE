@@ -7,16 +7,16 @@ const mapsSchema = new mongoose.Schema(
             required: true,
         },
         water: {
-            type: Array,
+            type: Number,
         },
         yellow: {
-            type: Array,
+            type: Number,
         },
         brown: {
-            type: Array,
+            type: Number,
         },
         danger: {
-            type: Array,
+            type: Number,
         },
         time: {
             type: String,

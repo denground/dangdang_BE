@@ -17,7 +17,7 @@ exports.showImage = async (req, res, next) => {
 };
 
 exports.saveMap = async (req, res, next) => {
-    const { path, time, marker, distance } = req.body;
+    const { path, time, water, yellow, brown, danger, distance } = req.body;
     console.log("req body", req.body);
     const { user } = res.locals;
     console.log("req locals", res.locals);
@@ -25,7 +25,10 @@ exports.saveMap = async (req, res, next) => {
         await Maps.create({
             path,
             time,
-            marker,
+            water,
+            yellow,
+            brown,
+            danger,
             distance,
             userID: user.userID,
         });
@@ -58,16 +61,7 @@ exports.showMap = async (req, res, next) => {
 exports.detailMap = async (req, res, next) => {
     try {
         const detail = await Maps.findById(req.params.mapsId);
-        const waterCount = await detail.waterCount.length;
-        const yellowCount = await detail.yellowCount.length;
-        const brownCount = await detail.brownCount.length;
-        const dangerCount = await detail.dangerCount.length;
-        res.status(200).json(detail, {
-            waterCount: waterCount,
-            yellowCount: yellowCount,
-            brownCount: brownCount,
-            dangerCount: dangerCount,
-        });
+        res.status(200).json(detail);
     } catch (error) {
         console.log(error);
         res.status(400).json({ fail: "알 수 없는 오류가 발생했습니다." });
