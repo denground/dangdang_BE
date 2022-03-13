@@ -31,7 +31,7 @@ exports.mypageMain = async (req, res, next) => {
             res.status(401).send({ fail: "데이터가 존재하지 않습니다." });
             return;
         }
-        res.status(200).json(userData, mapData);
+        res.status(200).send({userData, mapData});
     } catch (error) {
         res.status(400).send({ fail: "알 수 없는 오류가 발생했습니다." });
         next(error);
