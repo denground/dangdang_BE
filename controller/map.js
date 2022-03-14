@@ -46,11 +46,15 @@ exports.showMap = async (req, res, next) => {
             { userID: user.userID },
             { _id: true, createdAt: true, distance: true, time: true }
         );
+        const profileImage = await Profile.findOne(
+            { userID: user.userID },
+            { petImage: true }
+        );
         if (!list) {
             res.status(200).json({ success: "산책 내역이 없어요" });
             return;
         }
-        res.status(200).json(list);
+        res.status(200).json({ profileImage, list });
     } catch (error) {
         console.log(error);
         res.status(400).json({ fail: "알 수 없는 오류가 발생했습니다." });
