@@ -23,7 +23,7 @@ exports.savedog = async (req, res, next) => {
 exports.mypageMain = async (req, res, next) => {
     const { user } = res.locals;
     try {
-        const userData = await Profile.find({ userID: user.userID });
+        const [userData] = await Profile.find({ userID: user.userID });
         const mapData = await MapModel.find({ userID: user.userID });
         console.log(user.nickname);
         console.log(userData);
