@@ -44,7 +44,7 @@ exports.showMap = async (req, res, next) => {
     try {
         const list = await Maps.find(
             { userID: user.userID },
-            { _id: true, createdAt: true, distance: true, petImage: true }
+            { _id: true, createdAt: true, distance: true, time: true }
         );
         if (!list) {
             res.status(200).json({ success: "산책 내역이 없어요" });
