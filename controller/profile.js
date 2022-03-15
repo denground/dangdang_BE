@@ -44,7 +44,7 @@ exports.modifyMypage = async (req, res, next) => {
     const { user } = res.locals;
     const { petName, petGender, petBirth, petBreed } = req.body;
     try {
-        if (!req.file.location) {
+        if (!req.file) {
             await Profile.updateOne(
                 { userID: user.userID },
                 { $set: { petName, petGender, petBirth, petBreed, } }
