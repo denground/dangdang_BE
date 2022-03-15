@@ -23,7 +23,7 @@ const upload = multer({
         acl: 'public-read',
         key: function (req, file, cb) {
             let arr = file.originalname.split('.');
-            let ext = trim(arr[arr.length - 1]).toLowerCase();
+            let ext = arr[arr.length - 1].trim().toLowerCase();
 
             if (
                 ext !== 'png' &&
