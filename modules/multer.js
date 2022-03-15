@@ -15,7 +15,8 @@ const s3 = new aws.S3({
     region: S3_BUCKET_REGION,
 });
 
-console.log(req);
+console.log('req', req);
+console.log('req.file', req.file);
 
 const upload = multer({
     storage: multerS3({
