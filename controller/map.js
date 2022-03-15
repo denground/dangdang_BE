@@ -32,7 +32,7 @@ exports.saveMap = async (req, res, next) => {
             distance,
             userID: user.userID,
         });
-        res.status(200).json({ success: "산책 정보가 저장되었습니다." });
+        res.status(200).json({path, time, water, yellow, brown, danger, distance, success: "산책 정보가 저장되었습니다." });
     } catch (error) {
         res.status(400).send({ fail: "정보 저장에 실패하였습니다." });
         next(error);
