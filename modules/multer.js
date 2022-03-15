@@ -1,6 +1,6 @@
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const aws = require('aws-sdk');
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const aws = require("aws-sdk");
 
 const {
     S3_ACCESS_KEY,
@@ -20,26 +20,29 @@ const upload = multer({
         s3: s3,
         bucket: S3_BUCKET_NAME,
         contentType: multerS3.AUTO_CONTENT_TYPE,
-        acl: 'public-read',
+        acl: "public-read",
         key: function (req, file, cb) {
-            let arr = file.originalname.split('.');
-            let ext = arr[arr.length - 1].trim().toLowerCase();
+            if (!file) next();
+            else {
+                let arr = file.originalname.split(".");
+                let ext = arr[arr.length - 1].trim().toLowerCase();
 
-            if (
-                ext !== 'png' &&
-                ext !== 'gif' &&
-                ext !== 'jpg' &&
-                ext !== 'jpeg'
-            )
-                return;
+                if (
+                    ext !== "png" &&
+                    ext !== "gif" &&
+                    ext !== "jpg" &&
+                    ext !== "jpeg"
+                )
+                    return;
 
-            cb(
-                null,
-                Math.floor(Math.random() * 1000).toString() +
-                    Date.now() +
-                    '.' +
-                    file.originalname.split('.').pop()
-            );
+                cb(
+                    null,
+                    Math.floor(Math.random() * 1000).toString() +
+                        Date.now() +
+                        "." +
+                        file.originalname.split(".").pop()
+                );
+            }
         },
     }),
     limits: {
