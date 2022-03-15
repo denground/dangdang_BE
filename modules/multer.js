@@ -22,9 +22,6 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: function (req, file, cb) {
-            console.log('req', req);
-            console.log('req.file', req.file);
-            console.log('file', file);
             cb(
                 null,
                 Math.floor(Math.random() * 1000).toString() +
@@ -32,9 +29,6 @@ const upload = multer({
                     '.' +
                     file.originalname.split('.').pop()
             );
-            console.log('req', req);
-            console.log('req.file', req.file);
-            console.log('file', file);
         },
     }),
     limits: {
