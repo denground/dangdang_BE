@@ -40,12 +40,12 @@ exports.saveMap = async (req, res, next) => {
     }
 };
 
-exports.showdata = async (req, res, next) => {
+exports.showData = async (req, res, next) => {
     const { user } = res.locals;
     try {
         const [recentData] = await Maps.find({ userID: user.userID }).sort({ createdAt: -1 }).limit(1);
         const mypetName = await Profile.findOne({userID: user.userID}, {petName: true});
-        res.status(200).send({recentData, mypetName});
+        res.status(200).send({recentData: recentData, petname: mypetName});
     } catch (error) {
         res.status(401).send({ fail: "정보를 불러오지 못했습니다. 관리자에게 문의하세요." });
         next(error);

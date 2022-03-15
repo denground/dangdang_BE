@@ -10,7 +10,7 @@ router.get('/maps/pause', authMiddleWare, mapController.showImage);
 router.post('/maps/info', authMiddleWare, mapController.saveMap);
 
 //산책 종료 페이지 내용
-router.get('/maps/endwalk', authMiddleWare, mapController.showdata);
+router.get('/maps/endwalk', authMiddleWare, mapController.showData);
 
 //산책일지 불러오기 (메인)
 router.get('/maps/info', authMiddleWare, mapController.showMap);
