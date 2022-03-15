@@ -22,7 +22,7 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: function (req, file, cb) {
-            let arr = string.split('.');
+            let arr = file.originalname.split('.');
             let ext = toLowerCase(trim(arr[arr.length - 1]));
 
             if (
