@@ -22,6 +22,17 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: function (req, file, cb) {
+            let arr = string.split('.');
+            let ext = toLowerCase(trim(arr[arr.length - 1]));
+
+            if (
+                ext !== 'png' &&
+                ext !== 'gif' &&
+                ext !== 'jpg' &&
+                ext !== 'jpeg'
+            )
+                return;
+
             cb(
                 null,
                 Math.floor(Math.random() * 1000).toString() +
