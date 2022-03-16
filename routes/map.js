@@ -9,6 +9,9 @@ router.get('/maps/pause', authMiddleWare, mapController.showImage);
 //산책 정보 저장 (산책종료 클릭 시)
 router.post('/maps/info', authMiddleWare, mapController.saveMap);
 
+//산책 종료 페이지 내용
+router.get('/maps/endwalk', authMiddleWare, mapController.showData);
+
 //산책일지 불러오기 (메인)
 router.get('/maps/info', authMiddleWare, mapController.showMap);
 
