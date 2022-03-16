@@ -82,20 +82,13 @@ exports.sendEmail = async (req, res, next) => {
 
                 console.log('password 업데이트 됐을까?', user.password);
 
-                // Password 복호화
-                // const bytes = CryptoJS.AES.decrypt(
-                //     user.password,
-                //     process.env.PRIVATE_KEY
-                // );
-                // const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
                 // 전송할 email 내용 작성
                 mailOptions = {
                     from: EMAIL,
                     to: receiverEmail,
                     subject: '찾으시는 PASSWORD 입니다..',
                     text: `${user.userID}님의 비밀번호는 ${randomPw} 입니다.
-                          임시 비밀번호이니, 로그인 후 비밀번호를 꼭 변경하세요!`,
+                    임시 비밀번호이니, 로그인 후 비밀번호를 꼭 변경하세요!`,
                 };
             }
         }
