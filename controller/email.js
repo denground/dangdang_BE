@@ -94,7 +94,8 @@ exports.sendEmail = async (req, res, next) => {
                     from: EMAIL,
                     to: receiverEmail,
                     subject: '찾으시는 PASSWORD 입니다..',
-                    text: `<h1>${user.userID}님의 비밀번호는 ${randomPw} 입니다.</h1>`,
+                    text: `${user.userID}님의 비밀번호는 ${randomPw} 입니다.
+                          임시 비밀번호이니, 로그인 후 비밀번호를 꼭 변경하세요!`,
                 };
             }
         }
