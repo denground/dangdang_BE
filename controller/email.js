@@ -66,13 +66,12 @@ exports.sendEmail = async (req, res, next) => {
                     return randomStr;
                 }
 
-                // password 암호화
-                randomPw = process.env.PRIVATE_KEY;
-                console.log('randomPw 암호화', randomPw);
+                // 랜덤 password 확인
+                console.log('randomPw : ', randomPw);
                 // AES 알고리즘 암호화
                 const encrypted = CryptoJS.AES.encrypt(
-                    JSON.stringify(password),
-                    privateKey
+                    JSON.stringify(randomPw),
+                    process.env.PRIVATE_KEY
                 ).toString();
                 console.log('encryted 암호화', encrypted);
 
@@ -84,18 +83,18 @@ exports.sendEmail = async (req, res, next) => {
                 console.log('password 업데이트 됐을까?', user.password);
 
                 // Password 복호화
-                const bytes = CryptoJS.AES.decrypt(
-                    user.password,
-                    process.env.PRIVATE_KEY
-                );
-                const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                // const bytes = CryptoJS.AES.decrypt(
+                //     user.password,
+                //     process.env.PRIVATE_KEY
+                // );
+                // const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
                 // 전송할 email 내용 작성
                 mailOptions = {
                     from: EMAIL,
                     to: receiverEmail,
                     subject: '찾으시는 PASSWORD 입니다..',
-                    text: `<h1>${user.userID}님의 비밀번호는 ${decrypted} 입니다.</h1>`,
+                    text: `<h1>${user.userID}님의 비밀번호는 ${randomPw} 입니다.</h1>`,
                 };
             }
         }
