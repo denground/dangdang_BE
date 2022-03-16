@@ -44,10 +44,17 @@ exports.modifyMypage = async (req, res, next) => {
     const { user } = res.locals;
     const { petName, petGender, petBirth, petBreed } = req.body;
     try {
-        await Profile.updateOne(
-            { userID: user.userID },
-            { $set: { petImage: req.file.location, petName, petGender, petBirth, petBreed, } }
-        );
+        if (!req.file) {
+            await Profile.updateOne(
+                { userID: user.userID },
+                { $set: { petName, petGender, petBirth, petBreed, } }
+            );
+        } else {
+            await Profile.updateOne(
+                { userID: user.userID },
+                { $set: { petImage: req.file.location, petName, petGender, petBirth, petBreed, } }
+            );
+        }
         res.status(200).send({
             success: "정보가 수정되었습니다.",
         });
