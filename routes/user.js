@@ -15,7 +15,7 @@ router.get( '/users/kakao', (req, res, next) => {
     passport.authenticate('kakao-login', {
         failureRedirect: '/',
     }), (err, user, info) => {
-        if (err) return next(err);
+        if (err) return console.log(err);
         const { userID, nickname } = user;
         const token = jwt.sign(
             { userID: userID, nickname: nickname },
