@@ -1,10 +1,10 @@
-const passport = require("passport");
+// const passport = require("passport");
 const kakaoStrategy = require('passport-kakao').Strategy
 const User = require('../schemas/user')
 
-module.exports = () => {
+module.exports = (passport) => {
     console.log("passport 진입");
-    passport.use(new kakaoStrategy({
+    passport.use('kakao', new kakaoStrategy({
         clientID: process.env.CLIENTID,
         callbackURL: process.env.CALLBACKURL,
     }, async (accessToken, refreshToken, profile, done) => {

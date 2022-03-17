@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 // passport 모듈
 const passport = require('passport')
-const passportConfig = require('./passport/kakaoStrategy')
+const passportConfig = require('./passport')
 
 const port = process.env.PORT;
 // DDoS 공격 방어를 위한 제한 모듈
@@ -26,7 +26,6 @@ const guideRouter = require("./routes/guide");
 const profileRouter = require("./routes/profile");
 const mapRouter = require("./routes/map");
 const emailRouter = require("./routes/email");
-const { MemoryStore } = require("express-session");
 require("dotenv").config();
 
 const options = { // letsencrypt로 받은 인증서 경로를 입력
@@ -56,7 +55,7 @@ app.use((req, res, next) => {
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // express사용 정보 숨기기
 app.disable("x-powered-by");
@@ -70,9 +69,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     secret: process.env.COOKIE_SECRET,
-    store: new MemoryStore({
-        checkPeriod: 24 * 60 * 60 * 1000,
-    }),
     cookie: {
         httpOnly: true,
         secure: true,
