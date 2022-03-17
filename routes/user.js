@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session');
 const router = express.Router();
 const authMiddleWare = require('../middlewares/auth-middleware');
 const userController = require('../controller/user');
@@ -28,6 +27,7 @@ router.get(
         req.session.token = token;
         console.log("token : " + req.session.token);
         req.session.save(function() {
+            res.cookie(`${process.env.COOKIE}`, token);
             res.redirect('https://bitter-yak-42.loca.lt/main');
         })
         // res.json({
@@ -35,7 +35,6 @@ router.get(
         //     token_cookie,
         // })
 
-        // res.cookie(process.env.COOKIE, token);
     }
 );
 
