@@ -25,7 +25,7 @@ router.get(
             process.env.TOKEN_SECRET_KEY
         );
         // 세션에 정보 저장
-        req.session['token'] = token;
+        req.session.token = token;
         console.log("token : " + req.session.token);
         req.session.save(function() {
             res.redirect('https://bitter-yak-42.loca.lt/main');
