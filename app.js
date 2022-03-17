@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 // passport 모듈
 const passport = require('passport')
-const passportConfig = require('./passport')
+const passportConfig = require('./passport/kakaoStrategy')
 
 const port = process.env.PORT;
 // DDoS 공격 방어를 위한 제한 모듈

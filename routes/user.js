@@ -8,6 +8,12 @@ const jwt = require("jsonwebtoken");
 // 회원가입 router
 router.post('/users/signup', userController.userSignup);
 
+// 로그인 router
+router.post('/users/login', userController.login);
+
+// 회원인증 router
+router.get('/users/auth', authMiddleWare, userController.auth);
+
 // passport-kakao Login
 router.get('/kakao', passport.authenticate('kakao'));
 router.get('/auth/kakao/callback', (req, res, next) => {
@@ -15,7 +21,7 @@ router.get('/auth/kakao/callback', (req, res, next) => {
     console.log("req.query : " + JSON.stringify(req.query));
     passport.authenticate('kakao', {
         failureRedirect: '/',
-    }), (err, user, info) => {
+    }, (err, user, info) => {
         if (err) return console.log(err);
         const { userID, nickname } = user;
         const token = jwt.sign(
@@ -24,13 +30,9 @@ router.get('/auth/kakao/callback', (req, res, next) => {
         );
         console.log("kakao token: " + token);
         res.send({ token, success: "카카오 로그인 성공!" });
-    }
+    }) (req, res, next);
 });
 
-// 로그인 router
-router.post('/users/login', userController.login);
-
-// 회원인증 router
-router.get('/users/auth', authMiddleWare, userController.auth);
-
 module.exports = router;
+
+
