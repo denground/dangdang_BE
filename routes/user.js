@@ -12,6 +12,7 @@ router.post('/users/signup', userController.userSignup);
 router.get('/kakao', passport.authenticate('kakao'));
 router.get('/auth/kakao/callback', (req, res, next) => {
     console.log("kakao callback 진입");
+    console.log("req.query : " + req.query);
     passport.authenticate('kakao', {
         failureRedirect: '/',
     }), (err, user, info) => {
