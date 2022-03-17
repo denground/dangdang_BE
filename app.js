@@ -66,12 +66,12 @@ app.use(cors());
 app.use(cookieParser(process.env.COOKIE_SECRET))
 // express-session
 app.use(session({
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
     }
 }))
 
