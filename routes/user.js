@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const router = express.Router();
 const authMiddleWare = require('../middlewares/auth-middleware');
 const userController = require('../controller/user');
@@ -25,14 +26,16 @@ router.get(
         );
         // 세션에 정보 저장
         req.session['token'] = token;
+        console.log("token : " + req.session.token);
+        req.session.save(function() {
+            res.redirect('https://bitter-yak-42.loca.lt/main');
+        })
         // res.json({
         //     msg: '카카오 로그인 성공..!',
         //     token_cookie,
         // })
-        console.log("token : " + req.session.token);
 
-        res.cookie(process.env.COOKIE, token);
-        res.redirect('https://bitter-yak-42.loca.lt/main');
+        // res.cookie(process.env.COOKIE, token);
     }
 );
 
