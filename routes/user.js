@@ -12,7 +12,7 @@ router.post('/users/signup', userController.userSignup);
 router.get('/kakao', passport.authenticate('kakao-login'));
 router.get('/auth/kakao/callback', (req, res, next) => {
     console.log("kakao callback 진입");
-    passport.authenticate('kakao-login', {
+    passport.authenticate('kakao', {
         failureRedirect: '/',
     }), (err, user, info) => {
         if (err) return console.log(err);
