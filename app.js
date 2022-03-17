@@ -26,6 +26,7 @@ const guideRouter = require("./routes/guide");
 const profileRouter = require("./routes/profile");
 const mapRouter = require("./routes/map");
 const emailRouter = require("./routes/email");
+const { MemoryStore } = require("express-session");
 require("dotenv").config();
 
 const options = { // letsencrypt로 받은 인증서 경로를 입력
@@ -67,8 +68,11 @@ app.use(cookieParser(process.env.COOKIE_SECRET))
 // express-session
 app.use(session({
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: process.env.COOKIE_SECRET,
+    store: new MemoryStore({
+        checkPeriod: 24 * 60 * 60 * 1000,
+    }),
     cookie: {
         httpOnly: true,
         secure: true,
