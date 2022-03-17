@@ -9,12 +9,9 @@ module.exports = (passport) => {
         try {
             console.log("accessToken : " + accessToken);
             const exUser = await User.findOne({userID: profile.id})
-            const tokenUser = {
-                user: exUser,
-                accessToken: accessToken || '',
-            }
+
             if (exUser) {
-                done(null, tokenUser)
+                done(null, exUser);
             } else {
                 const newUser = await User.create({
                     userID: profile.id,

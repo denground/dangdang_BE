@@ -104,58 +104,6 @@ exports.userSignup = async (req, res) => {
     }
 };
 
-exports.socialLogin = async (req, res) => {
-    console.log("get");
-    res.send("access code 지급 완료");
-    // const { email, nickname } = req.body;
-
-    // const user = await User.findOne({ email, nickname });
-    // if (!user) {
-    //     await User.create({ email: email, nickname: nickname });
-    // }
-
-    // const token = jwt.sign(
-    //     { nickname: user.nickname },
-    //     process.env.TOKEN_SECRET_KEY
-    // );
-    // res.send({
-    //     success: `${user.nickname}님 환영합니다!🐶`,
-    //     token,
-    // });
-};
-
-exports.kakaoLogin = async (req, res, next) => {
-    console.log("post");
-    console.log(params_from_req['redirect_uri']);
-    let params_from_req = req.body['params'];
-    let grant = params_from_req['grant_type'];
-    let id = params_from_req['client_id'];
-    let redir = params_from_req['redirect_uri'];
-    let code = params_from_req['code'];
-    console.log(code);
-
-    const options = {
-        uri: "https://kauth.kakao.com/oauth/token",
-        method: "POST",
-        form: {
-            grant_type: grant,
-            client_id: id,
-            redirect_uri: redir,
-            code: code,
-        },
-        headers: {
-            "content-type": "application/x-www-form-urlencoded;charset=utf-8"
-        },
-        json: true,
-    }
-
-    let out = await request(options, function(error, res, body) {
-        return res;
-    });
-    console.log(out);
-    res.json(out);
-}
-
 // 로그인
 exports.login = async (req, res) => {
     try {

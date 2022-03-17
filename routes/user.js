@@ -8,35 +8,23 @@ const jwt = require("jsonwebtoken");
 // 회원가입 router
 router.post('/users/signup', userController.userSignup);
 
-// 카카오 로그인 API
-router.get('/users/kakao', userController.socialLogin);
-router.post('/users/kakao', userController.kakaoLogin);
-
 // passport-kakao Login
-// router.get('/kakao', passport.authenticate('kakao-login'));
-// router.get(
-//     '/auth/kakao/callback',
-//     passport.authenticate('kakao-login', {
-//         failureRedirect: '/',
-//     }),
-//     (req, res) => {
-//         const token = jwt.sign(
-//             { userID: req.user.userID, nickname: req.user.nickname },
-//             process.env.TOKEN_SECRET_KEY
-//         );
-//         // 세션에 정보 저장
-//         req.session.token = token;
-//         console.log("token : " + req.session.token);
-//         req.session.save(function() {
-//             res.cookie(`${process.env.COOKIE}`, token);
-//             res.redirect('https://bitter-yak-42.loca.lt/main');
-//         })
-//         // res.json({
-//         //     msg: '카카오 로그인 성공..!',
-//         //     token_cookie,
-//         // })
-//     }
-// );
+router.get('/kakao', passport.authenticate('kakao-login'));
+router.get( '/users/kakao', (req, res, next) => {
+    console.log("kakao callback 진입");
+    passport.authenticate('kakao-login', {
+        failureRedirect: '/',
+    }), (err, user, info) => {
+        if (err) return next(err);
+        const { userID, nickname } = user;
+        const token = jwt.sign(
+            { userID: userID, nickname: nickname },
+            process.env.TOKEN_SECRET_KEY
+        );
+        console.log("kakao token: " + token);
+        res.send({ token, success: "카카오 로그인 성공!" });
+    }
+});
 
 // 로그인 router
 router.post('/users/login', userController.login);
