@@ -32,7 +32,7 @@ router.get(
         console.log("token : " + req.session.token);
 
         res.cookie(process.env.COOKIE, token);
-        res.redirect('https://quick-monkey-15.loca.lt/main');
+        res.redirect('https://dry-cheetah-47.loca.lt/main');
     }
 );
 
