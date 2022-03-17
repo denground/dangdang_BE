@@ -4,7 +4,7 @@ const User = require('../schemas/user')
 module.exports = (passport) => {
     passport.use('kakao-login', new kakaoStrategy({
         clientID: process.env.CLIENTID,
-        callbackURL: process.env.CALLBACKURL,
+        callbackURL: `https://dengroundserver.com/${process.env.CALLBACKURL}`,
     }, async (accessToken, refreshToken, profile, done) => {
         try {
             console.log("accessToken : " + accessToken);
