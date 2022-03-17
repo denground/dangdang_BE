@@ -1,12 +1,13 @@
 const kakaoStrategy = require('passport-kakao').Strategy
 const User = require('../schemas/user')
 
-module.exports = async (passport) => {
+module.exports = (passport) => {
     passport.use('kakao-login', new kakaoStrategy({
         clientID: process.env.CLIENTID,
         callbackURL: process.env.CALLBACKURL,
     }, async (accessToken, refreshToken, profile, done) => {
         try {
+            console.log("accessToken : " + accessToken);
             const exUser = await User.findOne({userID: profile.id})
             const tokenUser = {
                 user: exUser,
