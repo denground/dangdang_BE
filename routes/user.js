@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 router.post('/users/signup', userController.userSignup);
 
 // passport-kakao Login
-router.get('/kakao', passport.authenticate('kakao-login'));
+router.get('/kakao', passport.authenticate('kakao'));
 router.get('/auth/kakao/callback', (req, res, next) => {
     console.log("kakao callback 진입");
     passport.authenticate('kakao', {
