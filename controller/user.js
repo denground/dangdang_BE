@@ -126,6 +126,7 @@ exports.socialLogin = async (req, res) => {
 
 exports.kakaoLogin = async (req, res, next) => {
     console.log("post");
+    console.log(params_from_req['redirect_uri']);
     let params_from_req = req.body['params'];
     let grant = params_from_req['grant_type'];
     let id = params_from_req['client_id'];
