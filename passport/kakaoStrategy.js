@@ -20,6 +20,7 @@ module.exports = (passport) => {
                     email: profile._json.kakao_account.email,
                     nickname: profile.displayName,
                 })
+                console.log(newUser);
                 done(null, newUser)
             }
         } catch (error) {
