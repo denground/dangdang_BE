@@ -17,4 +17,8 @@ router.get('/maps/info', authMiddleWare, mapController.showMap);
 
 // 산책일지 불러오기 (상세)
 router.get('/maps/info/:mapsId', authMiddleWare, mapController.detailMap);
+
+// 산책일지 삭제
+router.delete('/maps/delete/:mapsId', authMiddleWare, mapController.deleteMap);
+
 module.exports = router;
