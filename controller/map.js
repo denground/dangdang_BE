@@ -100,7 +100,7 @@ exports.detailMap = async (req, res, next) => {
 
 exports.deleteMap = async (req, res, next) => {
     try {
-        await Maps.deleteOne(req.params.mapsId);
+        await Maps.deleteOne({ _id: req.params.mapsId });
         res.status(200).json({ success: '산책일지가 삭제되었습니다.' });
     } catch (error) {
         res.status(400).json({ fail: '알 수 없는 오류가 발생했습니다.' });
