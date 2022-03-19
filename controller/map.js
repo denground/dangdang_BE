@@ -53,7 +53,6 @@ exports.showData = async (req, res, next) => {
 }
 
 exports.showMap = async (req, res, next) => {
-    console.time("showMap GET");
     const { user } = res.locals;
     try {
         const list = await Maps.find(
@@ -70,22 +69,17 @@ exports.showMap = async (req, res, next) => {
         }
         res.status(200).json({ profileImage, list });
     } catch (error) {
-        console.log(error);
         res.status(400).json({ fail: "알 수 없는 오류가 발생했습니다." });
         next(error);
     }
-    console.timeEnd("showMap GET");
 };
 
 exports.detailMap = async (req, res, next) => {
-    console.time("detailMap GET");
     try {
         const detail = await Maps.findById(req.params.mapsId);
         res.status(200).json(detail);
     } catch (error) {
-        console.log(error);
         res.status(400).json({ fail: "알 수 없는 오류가 발생했습니다." });
         next(error);
     }
-    console.timeEnd("detailMap GET");
 };

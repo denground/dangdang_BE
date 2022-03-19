@@ -21,7 +21,6 @@ exports.savedog = async (req, res, next) => {
 };
 
 exports.mypageMain = async (req, res, next) => {
-    console.time("mypage GET");
     const { user } = res.locals;
     try {
         const [userData] = await Profile.find({ userID: user.userID });
@@ -37,7 +36,6 @@ exports.mypageMain = async (req, res, next) => {
         res.status(400).send({ fail: "알 수 없는 오류가 발생했습니다." });
         next(error);
     }
-    console.timeEnd("mypage GET");
 };
 
 exports.modifyMypage = async (req, res, next) => {

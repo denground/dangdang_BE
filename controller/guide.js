@@ -1,7 +1,6 @@
 const Guide = require('../schemas/guide');
 
 exports.guideMain = async (req, res, next) => {
-    console.time("guideMain GET");
     try {
         // 게시글 데이터 추가가 필요할 경우 사용
         // await Guide.create({
@@ -21,7 +20,6 @@ exports.guideMain = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-    console.timeEnd("guideMain GET");
 };
 
 exports.guideDetail = async (req, res, next) => {

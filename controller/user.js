@@ -80,7 +80,6 @@ exports.userSignup = async (req, res) => {
         });
     } catch (error) {
         let joiError = error.details[0].message;
-        console.log(joiError);
         if (joiError.includes('email')) {
             res.status(400).send({
                 fail: '이메일 형식을 확인해주세요.',

@@ -21,7 +21,6 @@ exports.sendEmail = async (req, res, next) => {
         const user = await User.findOne({
             email,
         });
-        console.log('기존 password', user.password);
 
         // 이메일 수신자 (ID 찾는 유저)
         let receiverEmail = user.email;
@@ -54,7 +53,6 @@ exports.sendEmail = async (req, res, next) => {
                         ','
                     );
                 let randomPw = createCode(arr, 12);
-                console.log(randomPw);
 
                 function createCode(objArr, iLength) {
                     let arr = objArr;
@@ -66,21 +64,16 @@ exports.sendEmail = async (req, res, next) => {
                     return randomStr;
                 }
 
-                // 랜덤 password 확인
-                console.log('randomPw : ', randomPw);
                 // AES 알고리즘 암호화
                 const encrypted = CryptoJS.AES.encrypt(
                     JSON.stringify(randomPw),
                     process.env.PRIVATE_KEY
                 ).toString();
-                console.log('encryted 암호화', encrypted);
 
                 await User.updateOne(
                     { userID: user.userID },
                     { $set: { password: encrypted } }
                 );
-
-                console.log('password 업데이트 됐을까?', user.password);
 
                 // 전송할 email 내용 작성
                 mailOptions = {

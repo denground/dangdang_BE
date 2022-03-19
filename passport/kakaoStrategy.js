@@ -9,7 +9,6 @@ module.exports = (passport) => {
         callbackURL: process.env.CALLBACKURL,
     }, async (accessToken, refreshToken, profile, done) => {
         try {
-            console.log("accessToken : " + accessToken);
             const exUser = await User.findOne({userID: profile.id})
 
             if (exUser) {
