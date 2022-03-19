@@ -18,6 +18,9 @@ const usersSchema = new mongoose.Schema(
         password: {
             type: String,
         },
+        provider: {
+            type: String,
+        }
     },
     { timestamps: true }
 );

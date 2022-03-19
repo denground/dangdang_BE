@@ -9,7 +9,7 @@ module.exports = (passport) => {
         callbackURL: process.env.CALLBACKURL,
     }, async (accessToken, refreshToken, profile, done) => {
         try {
-            const exUser = await User.findOne({userID: profile.id})
+            const exUser = await User.findOne({userID: profile.id});
 
             if (exUser) {
                 done(null, exUser);
@@ -18,13 +18,14 @@ module.exports = (passport) => {
                     userID: profile.id,
                     email: profile._json.kakao_account.email,
                     nickname: profile.displayName,
-                })
+                    provider: "kakao",
+                });
                 console.log(newUser);
-                done(null, newUser)
+                done(null, newUser);
             }
         } catch (error) {
-            console.error(error)
-            done(error)
+            console.error(error);
+            done(error);
         }
     }))
 }
