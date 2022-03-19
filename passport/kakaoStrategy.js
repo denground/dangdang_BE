@@ -10,6 +10,7 @@ module.exports = (passport) => {
     }, async (accessToken, refreshToken, profile, done) => {
         try {
             const exUser = await User.findOne({email: profile._json.kakao_account.email});
+            console.log("카카오 시도 이메일: " + profile._json.kakao_account.email);
 
             if (exUser) {
                 if (exUser.provier === "kakao") {
