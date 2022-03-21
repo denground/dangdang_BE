@@ -23,9 +23,11 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
+            
+            - name: move to project directory
+              run: cd /home/ubuntu/dangdang_BE
 
             - name: create env file
-              working-directory: home/ubuntu/dangdang_BE
               run: |
                   touch .env
                   cat << EOF >> .env
