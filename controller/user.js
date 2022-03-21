@@ -174,10 +174,10 @@ exports.modifyPassword = async (req, res, next) => {
     console.log("req.body", req.body);
     try {
         console.log(user);
-        // AES 알고리즘 암호화
+        // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
             user.password,
-            process.env.PRIVATE_KEY
+            `${process.env.PRIVATE_KEY}`
         ).toString();
         const parseDecryptedPassword = JSON.parse(decryptedpassword.toString(CryptoJS.enc.Utf8));
         console.log("decryptedpassword", parseDecryptedPassword);
