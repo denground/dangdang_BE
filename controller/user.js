@@ -205,6 +205,7 @@ exports.modifyPassword = async (req, res, next) => {
             process.env.PRIVATE_KEY
         ).toString();
         console.log("encryptedNewpassword", encryptedNewpassword);
+        console.log("test");
 
         await User.updateOne(
             { userID: user.userID },
