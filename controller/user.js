@@ -177,9 +177,11 @@ exports.modifyPassword = async (req, res, next) => {
         // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
             user.password,
-            `${process.env.PRIVATE_KEY}`
-        ).toString();
-        const parseDecryptedPassword = JSON.parse(decryptedpassword.toString(CryptoJS.enc.Utf8));
+            process.env.PRIVATE_KEY
+        );
+        const parseDecryptedPassword = JSON.parse(
+            decryptedpassword.toString(CryptoJS.enc.Utf8)
+        );
         console.log("decryptedpassword", parseDecryptedPassword);
 
         // const findPassword = await User.findOne({
