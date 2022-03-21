@@ -23,18 +23,16 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
-            
-            - name: move to project directory
-              run: cd /home/ubuntu/dangdang_BE
 
             - name: create env file
+              working-directory: ../dangdang_BE
               run: |
                   touch .env
                   cat << EOF >> .env
                   ${{ secrets.ENV }}
 
             - name: zip distributions
-              run: zip -r dangdang_BE.zip ./dangdang_BE
+              run: zip -r dangdang_BE.zip ../dangdang_BE
 
             - name: AWS configure credentials
               uses: aws-actions/configure-aws-credentials@v1
