@@ -25,7 +25,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: create env file
-              working-directory: ./dangdang_BE
+              working-directory: home/ubuntu/dangdang_BE
               run: |
                   touch .env
                   cat << EOF >> .env
