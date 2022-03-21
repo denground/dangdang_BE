@@ -1,11 +1,8 @@
-const User = require("../schemas/user");
-const CryptoJS = require("crypto-js");
-const jwt = require("jsonwebtoken");
-const Joi = require("joi");
-const request = require("request-promise");
-//const { request } = require('express');
-const { func } = require("joi");
-require("dotenv").config();
+const User = require('../schemas/user');
+const CryptoJS = require('crypto-js');
+const jwt = require('jsonwebtoken');
+const Joi = require('joi');
+require('dotenv').config();
 
 exports.userSignup = async (req, res) => {
     try {
@@ -21,7 +18,7 @@ exports.userSignup = async (req, res) => {
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
                 )
                 .required(),
-            confirmPassword: Joi.ref("password"),
+            confirmPassword: Joi.ref('password'),
         });
 
         // 형식확인
@@ -30,7 +27,7 @@ exports.userSignup = async (req, res) => {
 
         if (password !== confirmPassword) {
             return res.status(400).json({
-                fail: "비밀번호가 다르게 입력됐습니다.",
+                fail: '비밀번호가 다르게 입력됐습니다.',
             });
         }
 
@@ -47,14 +44,14 @@ exports.userSignup = async (req, res) => {
         // 동일한 메일이 있는지 조회
         if (checkUserEmail) {
             return res.status(400).json({
-                fail: "이미 가입한 이메일입니다.",
+                fail: '이미 가입한 이메일입니다.',
             });
         }
 
         // 아이디가 있는 경우
         if (checkUserID) {
             return res.status(400).json({
-                fail: "이미 있는 아이디입니다.",
+                fail: '이미 있는 아이디입니다.',
             });
         }
 
@@ -73,32 +70,32 @@ exports.userSignup = async (req, res) => {
             nickname: nickname,
             // password 암호화된 비밀번호 입력
             password: encrypted,
-            provider: "local",
+            provider: 'local',
         });
 
         res.status(200).json({
-            success: "회원가입이 완료되었습니다🐶",
+            success: '회원가입이 완료되었습니다🐶',
         });
     } catch (error) {
         let joiError = error.details[0].message;
-        if (joiError.includes("email")) {
+        if (joiError.includes('email')) {
             res.status(400).send({
-                fail: "이메일 형식을 확인해주세요.",
+                fail: '이메일 형식을 확인해주세요.',
             });
         }
-        if (joiError.includes("password")) {
+        if (joiError.includes('password')) {
             res.status(400).send({
-                fail: "비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.",
+                fail: '비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.',
             });
         }
-        if (joiError.includes("userID")) {
+        if (joiError.includes('userID')) {
             res.status(400).send({
-                fail: "아이디는 2자 이상, 10자 이하의 영어 대소문자입니다.",
+                fail: '아이디는 2자 이상, 10자 이하의 영어 대소문자입니다.',
             });
         }
-        if (joiError.includes("nickname")) {
+        if (joiError.includes('nickname')) {
             res.status(400).send({
-                fail: "닉네임은 2자 이상, 10자 이하의 영어 대소문자나 한글입니다.",
+                fail: '닉네임은 2자 이상, 10자 이하의 영어 대소문자나 한글입니다.',
             });
         }
     }
@@ -117,7 +114,7 @@ exports.login = async (req, res) => {
         });
         if (checkUser === null) {
             return res.status(400).json({
-                fail: "입력창을 다시 확인하세요.",
+                fail: '입력창을 다시 확인하세요.',
             });
         }
 
@@ -126,7 +123,7 @@ exports.login = async (req, res) => {
         const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         if (password !== decrypted) {
             return res.status(400).json({
-                fail: "비밀번호를 다시 확인해주세요.",
+                fail: '비밀번호를 다시 확인해주세요.',
             });
         }
 
@@ -146,8 +143,73 @@ exports.login = async (req, res) => {
         });
     } catch (err) {
         res.status(400).json({
-            fail: "입력창을 확인 해주세요.",
+            fail: '입력창을 확인 해주세요.',
         });
+    }
+};
+
+// 닉네임 변경
+exports.modifyNicname = async (req, res, next) => {
+    const { user } = res.locals;
+    const { nickname } = req.body;
+    try {
+        await User.updateOne(
+            { userID: user.userID },
+            { $set: { nickname: nickname } }
+        );
+
+        res.status(200).send({
+            success: '정보가 수정되었습니다.',
+        });
+    } catch (error) {
+        res.status(400).send({ fail: '정보를 다시 확인해주세요.' });
+        next(error);
+    }
+};
+
+// 비밀번호 변경
+exports.modifyPassword = async (req, res, next) => {
+    const { user } = res.locals;
+    const { password, newPassword, confirmNewPassword } = req.body;
+    try {
+        // AES 알고리즘 암호화
+        const encryptedpassword = CryptoJS.AES.encrypt(
+            JSON.stringify(password),
+            process.env.PRIVATE_KEY
+        ).toString();
+
+        const findPassword = await User.findOne({
+            password: encryptedpassword,
+        });
+
+        if (!findPassword) {
+            res.status(400).json({
+                fail: '기존 비밀번호가 잘못 입력되었습니다.',
+            });
+            return;
+        }
+
+        if (newPassword !== confirmNewPassword) {
+            res.status(400).json({ fail: '비밀번호가 다르게 입력됐습니다.' });
+            return;
+        }
+
+        const encryptedNewpassword = CryptoJS.AES.encrypt(
+            JSON.stringify(newPassword),
+            process.env.PRIVATE_KEY
+        ).toString();
+
+        await User.updateOne(
+            { userID: user.userID },
+            { $set: { password: encryptedNewpassword } }
+        );
+
+        res.status(200).json({
+            success: '정보가 수정되었습니다.',
+        });
+    } catch (error) {
+        res.status(400).send({ fail: '정보를 다시 확인해주세요.' });
+        next(error);
     }
 };
 
