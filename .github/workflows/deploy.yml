@@ -1,0 +1,54 @@
+name: deploy
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-18.04
+
+        strategy:
+            matrix:
+                node-version: [14.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+        steps:
+            - name: Checkout source code.
+              uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: create env file
+              working-directory: ./dangdang_BE
+              run: |
+                  touch .env
+                  cat << EOF >> .env
+                  ${{ secrets.ENV }}
+
+            - name: zip distributions
+              run: zip -r dangdang_BE.zip ./dangdang_BE
+
+            - name: AWS configure credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ap-northeast-2
+
+            - name: upload to S3
+              run: aws s3 cp --region ap-northeast-2 ./dangdang_BE.zip s3://dengroundserver/public/
+
+            - name: deploy with AWS codeDeploy
+              run: aws deploy create-deployment
+                  --application-name denground-codedeploy
+                  --deployment-config-name CodeDeployDefault.OneAtATime
+                  --deployment-group-name CI-github
+                  --ignore-application-stop-failures
+                  --s3-location bucket=dengroundserver,bundleType=zip,key=public/dangdang_BE.zip
+                  --description "Ignore ApplicationStop failures due to broken script"
