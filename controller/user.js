@@ -174,18 +174,17 @@ exports.modifyPassword = async (req, res, next) => {
     console.log('req.body', req.body);
     try {
         // AES 알고리즘 암호화
-        const encryptedpassword = CryptoJS.AES.encrypt(
-            JSON.stringify(password),
+        const decryptedpassword = CryptoJS.AES.decrypt(
+            JSON.stringify(user.password),
             process.env.PRIVATE_KEY
         ).toString();
-        console.log('encryptedpassword', encryptedpassword);
+        console.log('decryptedpassword', decryptedpassword);
 
-        const findPassword = await User.findOne({
-            password: encryptedpassword,
-        });
-        console.log('findPassword', findPassword);
+        // const findPassword = await User.findOne({
+        //     password: encryptedpassword,
+        // });
 
-        if (!findPassword) {
+        if (decryptedpassword !== password) {
             res.status(400).json({
                 fail: '기존 비밀번호가 잘못 입력되었습니다.',
             });
