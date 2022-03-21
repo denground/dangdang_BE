@@ -171,16 +171,19 @@ exports.modifyNicname = async (req, res, next) => {
 exports.modifyPassword = async (req, res, next) => {
     const { user } = res.locals;
     const { password, newPassword, confirmNewPassword } = req.body;
+    console.log('req.body', req.body);
     try {
         // AES 알고리즘 암호화
         const encryptedpassword = CryptoJS.AES.encrypt(
             JSON.stringify(password),
             process.env.PRIVATE_KEY
         ).toString();
+        console.log('encryptedpassword', encryptedpassword);
 
         const findPassword = await User.findOne({
             password: encryptedpassword,
         });
+        console.log('findPassword', findPassword);
 
         if (!findPassword) {
             res.status(400).json({
@@ -198,6 +201,7 @@ exports.modifyPassword = async (req, res, next) => {
             JSON.stringify(newPassword),
             process.env.PRIVATE_KEY
         ).toString();
+        console.log('encryptedNewpassword', encryptedNewpassword);
 
         await User.updateOne(
             { userID: user.userID },

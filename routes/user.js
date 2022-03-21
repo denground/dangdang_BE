@@ -15,11 +15,7 @@ router.post('/users/login', userController.login);
 router.patch('/users/modifyNic', authMiddleWare, userController.modifyNicname);
 
 // 비밀번호 변경 router
-router.patch(
-    '/users/modiPassword',
-    authMiddleWare,
-    userController.modifyPassword
-);
+router.patch('/users/modifyPW', authMiddleWare, userController.modifyPassword);
 
 // 회원인증 router
 router.get('/users/auth', authMiddleWare, userController.auth);
