@@ -183,8 +183,12 @@ exports.modifyPassword = async (req, res, next) => {
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
             )
             .required(),
-            newPassword: Joi.ref('password'),
-            confirmNewPassword: Joi.ref('password'),
+            newPassword: Joi.string()
+            .pattern(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+            )
+            .required(),
+            confirmNewPassword: Joi.ref('newPassword'),
         });
         console.log(req.body);
         const { user } = res.locals;
