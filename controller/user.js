@@ -224,6 +224,7 @@ exports.modifyPassword = async (req, res, next) => {
             success: '정보가 수정되었습니다.',
         });
     } catch (error) {
+        let joiError = error.details[0].message;
         if (joiError.includes('password')) {
             res.status(400).send({
                 fail: '비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.',
@@ -233,11 +234,12 @@ exports.modifyPassword = async (req, res, next) => {
         }
     }
 
-    exports.auth = async (req, res) => {
-        const { user } = res.locals;
-        res.send({
-            userID: user.userID,
-            nickname: user.nickname,
-        });
-    };
+};
+
+exports.auth = async (req, res) => {
+    const { user } = res.locals;
+    res.send({
+        userID: user.userID,
+        nickname: user.nickname,
+    });
 };
