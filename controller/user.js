@@ -185,6 +185,7 @@ exports.modifyPassword = async (req, res, next) => {
                 .required(),
             confirmNewPassword: Joi.ref('newPassword'),
         });
+        console.log(req.body);
         const { user } = res.locals;
         const { newPassword, confirmNewPassword } =
             await userSchema.validateAsync(req.body);
