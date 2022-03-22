@@ -179,15 +179,15 @@ exports.modifyPassword = async (req, res, next) => {
         // Joi
         const userSchema = Joi.object({
             password: Joi.string()
-            .pattern(
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
-            )
-            .required(),
+                .pattern(
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+                )
+                .required(),
             newPassword: Joi.string()
-            .pattern(
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
-            )
-            .required(),
+                .pattern(
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+                )
+                .required(),
             confirmNewPassword: Joi.ref('newPassword'),
         });
         console.log(req.body);
@@ -238,7 +238,6 @@ exports.modifyPassword = async (req, res, next) => {
             next(error);
         }
     }
-
 };
 
 exports.auth = async (req, res) => {
@@ -246,5 +245,6 @@ exports.auth = async (req, res) => {
     res.send({
         userID: user.userID,
         nickname: user.nickname,
+        email: user.email,
     });
 };
