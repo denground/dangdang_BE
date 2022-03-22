@@ -186,7 +186,7 @@ exports.modifyPassword = async (req, res, next) => {
             confirmNewPassword: Joi.ref('newPassword'),
         });
         const { user } = res.locals;
-        const { password, newPassword, confirmNewPassword } =
+        const { newPassword, confirmNewPassword } =
             await userSchema.validateAsync(req.body);
         // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
@@ -197,7 +197,7 @@ exports.modifyPassword = async (req, res, next) => {
             decryptedpassword.toString(CryptoJS.enc.Utf8)
         );
 
-        if (parseDecryptedPassword !== password) {
+        if (parseDecryptedPassword !== req.body.password) {
             res.status(400).json({
                 fail: '기존 비밀번호가 잘못 입력되었습니다.',
             });
@@ -229,7 +229,6 @@ exports.modifyPassword = async (req, res, next) => {
             res.status(400).send({
                 fail: '비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.',
             });
-            res.status(400).send({ fail: '알 수 없는 오류가 발생했습니다.' });
             next(error);
         }
     }
