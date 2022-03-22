@@ -178,16 +178,17 @@ exports.modifyPassword = async (req, res, next) => {
     try {
         // Joi
         const userSchema = Joi.object({
-            newPassword: Joi.string()
-                .pattern(
-                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
-                )
-                .required(),
-            confirmNewPassword: Joi.ref('newPassword'),
+            password: Joi.string()
+            .pattern(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+            )
+            .required(),
+            newPassword: Joi.ref('password'),
+            confirmNewPassword: Joi.ref('password'),
         });
         console.log(req.body);
         const { user } = res.locals;
-        const { newPassword, confirmNewPassword } =
+        const { password, newPassword, confirmNewPassword } =
             await userSchema.validateAsync(req.body);
         // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
@@ -198,7 +199,7 @@ exports.modifyPassword = async (req, res, next) => {
             decryptedpassword.toString(CryptoJS.enc.Utf8)
         );
 
-        if (parseDecryptedPassword !== req.body.password) {
+        if (parseDecryptedPassword !== password) {
             res.status(400).json({
                 fail: '기존 비밀번호가 잘못 입력되었습니다.',
             });
