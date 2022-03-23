@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/spirit-B/dangdang_BE#readme",
   "dependencies": {
-    "aws-sdk": "^2.1082.0",
+    "aws-sdk": "^2.1084.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
