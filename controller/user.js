@@ -79,22 +79,22 @@ exports.userSignup = async (req, res) => {
     } catch (error) {
         let joiError = error.details[0].message;
         if (joiError.includes("email")) {
-            res.status(400).send({
+            res.status(400).json({
                 fail: "이메일 형식을 확인해주세요.",
             });
         }
         if (joiError.includes("password")) {
-            res.status(400).send({
+            res.status(400).json({
                 fail: "비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.",
             });
         }
         if (joiError.includes("userID")) {
-            res.status(400).send({
+            res.status(400).json({
                 fail: "아이디는 2자 이상, 10자 이하의 영어 대소문자입니다.",
             });
         }
         if (joiError.includes("nickname")) {
-            res.status(400).send({
+            res.status(400).json({
                 fail: "닉네임은 2자 이상, 10자 이하의 영어 대소문자나 한글입니다.",
             });
         }
@@ -155,13 +155,13 @@ exports.kakaoLogin = (req, res, next) => {
             failureRedirect: "/",
         },
         (err, user, info) => {
-            if (err) return res.status(401).send(err);
+            if (err) return res.status(401).json(err);
             const { userID, nickname } = user;
             const token = jwt.sign(
                 { userID: userID, nickname: nickname },
                 process.env.TOKEN_SECRET_KEY
             );
-            res.send({ token, success: "카카오 로그인 성공!" });
+            res.json({ token, success: "카카오 로그인 성공!" });
         }
     )(req, res, next);
 };
@@ -180,11 +180,11 @@ exports.modifyNicname = async (req, res, next) => {
             { $set: { nickname: nickname } }
         );
 
-        res.status(200).send({
+        res.status(200).json({
             success: "정보가 수정되었습니다.",
         });
     } catch (error) {
-        res.status(400).send({
+        res.status(400).json({
             fail: "닉네임은 2자 이상, 10자 이하만 가능합니다.",
         });
         next(error);
@@ -249,7 +249,7 @@ exports.modifyPassword = async (req, res, next) => {
     } catch (error) {
         let joiError = error.details[0].message;
         if (joiError.includes("password")) {
-            res.status(400).send({
+            res.status(400).json({
                 fail: "비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.",
             });
             next(error);
@@ -259,7 +259,7 @@ exports.modifyPassword = async (req, res, next) => {
 
 exports.auth = async (req, res) => {
     const { user } = res.locals;
-    res.send({
+    res.json({
         userID: user.userID,
         nickname: user.nickname,
         email: user.email,

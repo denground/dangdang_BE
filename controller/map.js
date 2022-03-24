@@ -40,7 +40,7 @@ exports.saveMap = async (req, res, next) => {
             success: '산책 정보가 저장되었습니다.',
         });
     } catch (error) {
-        res.status(400).send({ fail: '정보 저장에 실패하였습니다.' });
+        res.status(400).json({ fail: '정보 저장에 실패하였습니다.' });
         next(error);
     }
 };
@@ -55,9 +55,9 @@ exports.showData = async (req, res, next) => {
             { userID: user.userID },
             { petName: true }
         );
-        res.status(200).send({ recentData: recentData, petname: mypetName });
+        res.status(200).json({ recentData: recentData, petname: mypetName });
     } catch (error) {
-        res.status(401).send({
+        res.status(401).json({
             fail: '정보를 불러오지 못했습니다. 관리자에게 문의하세요.',
         });
         next(error);
