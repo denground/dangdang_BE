@@ -2,6 +2,7 @@ const User = require("../schemas/user");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const passport = require('passport');
 require("dotenv").config();
 
 exports.userSignup = async (req, res) => {
