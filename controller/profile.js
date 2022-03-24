@@ -25,8 +25,6 @@ exports.mypageMain = async (req, res, next) => {
     try {
         const [userData] = await Profile.find({ userID: user.userID });
         const mapData = await MapModel.find({ userID: user.userID });
-        console.log(user.nickname);
-        console.log(userData);
         if (!userData) {
             res.status(401).send({ fail: "데이터가 존재하지 않습니다." });
             return;

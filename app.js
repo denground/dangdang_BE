@@ -86,10 +86,10 @@ app.use(helmet.hsts({
 }));
 
 // 1분동안 하나의 ip 주소에서 들어오는 request의 숫자를 100회로 제한
-// app.use(rateLimit({
-//     windowMs: 1 * 60 * 1000,
-//     max: 100
-// }));
+app.use(rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 100
+}));
 
 // xss(교차 사이트 스크립팅) 공격 방어
 app.use(helmet.xssFilter());
@@ -101,7 +101,3 @@ app.use(helmet.frameguard("deny"));
 app.use(helmet.noSniff());
 
 app.use("/api", [userRouter, guideRouter, profileRouter, mapRouter, emailRouter]);
-
-// app.listen(port, () => {
-//     console.log(port, "포트로 서버가 켜졌습니다.");
-// });

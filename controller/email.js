@@ -115,7 +115,6 @@ exports.sendEmail = async (req, res, next) => {
             }
         }
     } catch (err) {
-        console.log(err);
         res.status(400).json({
             fail: '다시 입력해주세요.',
         });
