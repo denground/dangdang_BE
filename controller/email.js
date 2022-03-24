@@ -28,6 +28,15 @@ exports.sendEmail = async (req, res, next) => {
         // 보낼 내용
         let mailOptions = ``;
 
+        // transport 생성
+        let transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: EMAIL,
+                pass: EMAIL_PASSWORD,
+            },
+        });
+
         // 아이디 입력이 없는 경우
         if (!userID) {
             // 전송할 email 내용 작성
@@ -35,8 +44,19 @@ exports.sendEmail = async (req, res, next) => {
                 from: EMAIL,
                 to: receiverEmail,
                 subject: '찾으시는 ID 입니다.',
-                text: `<h1>회원님의 아이디는 ${user.userID} 입니다.</h1>`,
+                text: `회원님의 아이디는 ${user.userID} 입니다.`,
             };
+
+            // email 전송
+            transport.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+            res.status(200).json({
+                success: '아이디가 메일로 전송되었습니다.',
+            });
         }
 
         // 아이디 입력이 있는 경우
@@ -83,30 +103,19 @@ exports.sendEmail = async (req, res, next) => {
                     text: `${user.userID}님의 비밀번호는 ${randomPw} 입니다.
                     임시 비밀번호이니, 로그인 후 비밀번호를 꼭 변경하세요!`,
                 };
+                // email 전송
+                transport.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
+                res.status(200).json({
+                    success: '임시 비밀번호가 메일로 전송되었습니다.',
+                });
             }
         }
-
-        // transport 생성
-        let transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: EMAIL,
-                pass: EMAIL_PASSWORD,
-            },
-        });
-
-        // email 전송
-        transport.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-            console.log('send mail success');
-        });
-
-        res.status(200).json({
-            success: '메일 전송완료!',
-        });
     } catch (err) {
+        console.log(err);
         res.status(400).json({
             fail: '다시 입력해주세요.',
         });
