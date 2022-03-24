@@ -23,7 +23,6 @@ describe('node-mailer를 통한 ID/PW 찾기', () => {
             fail: '이메일을 입력해주세요.',
         });
     });
-
     test('유저 정보가 없으면 에러 발생', async () => {
         req.body.email = notUser;
         User.findOne.mockImplementation(() => {
@@ -42,7 +41,6 @@ describe('node-mailer를 통한 ID/PW 찾기', () => {
             success: '아이디가 메일로 전송되었습니다.',
         });
     });
-
     test('ID 입력 있는 경우 PW 찾아줌', async () => {
         req.body = isID;
         User.findOne.mockReturnValue(findOne);
