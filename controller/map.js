@@ -48,15 +48,16 @@ exports.saveMap = async (req, res, next) => {
 exports.showData = async (req, res, next) => {
     const { user } = res.locals;
     try {
-        const recentData = await Maps.findOne({ userID: user.userID }).sort({
-            createdAt: -1,
-        });
+        const [recentData] = await Maps.find({ userID: user.userID })
+            .sort({ createdAt: -1 })
+            .limit(1);
         const mypetName = await Profile.findOne(
             { userID: user.userID },
             { petName: true }
         );
         res.status(200).json({ recentData: recentData, petname: mypetName });
     } catch (error) {
+        console.log(error);
         res.status(401).json({
             fail: '정보를 불러오지 못했습니다. 관리자에게 문의하세요.',
         });
