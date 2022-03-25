@@ -48,9 +48,9 @@ exports.saveMap = async (req, res, next) => {
 exports.showData = async (req, res, next) => {
     const { user } = res.locals;
     try {
-        const [recentData] = await Maps.find({ userID: user.userID })
-            .sort({ createdAt: -1 })
-            .limit(1);
+        const recentData = await Maps.findOne({ userID: user.userID }).sort({
+            createdAt: -1,
+        });
         const mypetName = await Profile.findOne(
             { userID: user.userID },
             { petName: true }
