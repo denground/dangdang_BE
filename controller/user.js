@@ -209,7 +209,7 @@ exports.modifyPassword = async (req, res, next) => {
         const newPassword = await userSchema.validateAsync(req.body.newPassword);
         const confirmNewPassword = await userSchema.validateAsync(req.body.confirmNewPassword);
         console.log("newPassword : ", newPassword);
-        console.log("confirmNewPassword : ". confirmNewPassword);
+        console.log("confirmNewPassword : ", confirmNewPassword);
 
         // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
