@@ -3,7 +3,7 @@ const Profile = require('../schemas/profile');
 
 exports.showImage = async (req, res, next) => {
     try {
-        const { user } = res.locals;
+        const user = res.locals;
         const imgUrl = await Profile.findOne(
             { userID: user.userID },
             { petImage: true, _id: false }
@@ -17,7 +17,7 @@ exports.showImage = async (req, res, next) => {
 
 exports.saveMap = async (req, res, next) => {
     const { path, time, water, yellow, brown, danger, distance } = req.body;
-    const { user } = res.locals;
+    const user = res.locals;
     try {
         await Maps.create({
             path,
