@@ -1,7 +1,7 @@
-const nodemailer = require('nodemailer');
-const User = require('../schemas/user');
-const CryptoJS = require('crypto-js');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+const User = require("../schemas/user");
+const CryptoJS = require("crypto-js");
+require("dotenv").config();
 
 exports.sendEmail = async (req, res, next) => {
     try {
@@ -10,7 +10,7 @@ exports.sendEmail = async (req, res, next) => {
         // 이메일 입력없으면 400메세지
         if (!email)
             return res.status(400).json({
-                fail: '이메일을 입력해주세요.',
+                fail: "이메일을 입력해주세요.",
             });
 
         // 메일을 보내는 gmail 계정
@@ -30,7 +30,7 @@ exports.sendEmail = async (req, res, next) => {
 
         // transport 생성
         let transport = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
                 user: EMAIL,
                 pass: EMAIL_PASSWORD,
@@ -43,7 +43,7 @@ exports.sendEmail = async (req, res, next) => {
             mailOptions = {
                 from: EMAIL,
                 to: receiverEmail,
-                subject: '찾으시는 ID 입니다.',
+                subject: "찾으시는 ID 입니다.",
                 text: `회원님의 아이디는 ${user.userID} 입니다.`,
             };
 
@@ -55,7 +55,7 @@ exports.sendEmail = async (req, res, next) => {
                 }
             });
             res.status(200).json({
-                success: '아이디가 메일로 전송되었습니다.',
+                success: "아이디가 메일로 전송되었습니다.",
             });
         }
 
@@ -64,25 +64,19 @@ exports.sendEmail = async (req, res, next) => {
             // password 찾기
             if (user.userID !== userID) {
                 return res.status(400).json({
-                    fail: '가입한 아이디 이메일을 입력해주세요.',
+                    fail: "가입한 아이디 이메일을 입력해주세요.",
                 });
             } else {
                 // 임시 비밀번호 생성
-                let arr =
-                    '0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,!,@,#,$,%,^,*,_,-'.split(
-                        ','
-                    );
-                let randomPw = createCode(arr, 12);
-
-                function createCode(objArr, iLength) {
-                    let arr = objArr;
-                    let randomStr = '';
+                function createCode(iLength) {
+                    let characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^*_-";
+                    let randomStr = "";
                     for (let i = 0; i < iLength; i++) {
-                        randomStr +=
-                            arr[Math.floor(Math.random() * arr.length)];
+                        randomStr += characters.charAt(Math.floor(Math.random() * characters.length));
                     }
                     return randomStr;
                 }
+                let randomPw = createCode(12);
 
                 // AES 알고리즘 암호화
                 const encrypted = CryptoJS.AES.encrypt(
@@ -99,7 +93,7 @@ exports.sendEmail = async (req, res, next) => {
                 mailOptions = {
                     from: EMAIL,
                     to: receiverEmail,
-                    subject: '찾으시는 PASSWORD 입니다..',
+                    subject: "찾으시는 PASSWORD 입니다.",
                     text: `${user.userID}님의 비밀번호는 ${randomPw} 입니다.
                     임시 비밀번호이니, 로그인 후 비밀번호를 꼭 변경하세요!`,
                 };
@@ -110,13 +104,13 @@ exports.sendEmail = async (req, res, next) => {
                     }
                 });
                 res.status(200).json({
-                    success: '임시 비밀번호가 메일로 전송되었습니다.',
+                    success: "임시 비밀번호가 메일로 전송되었습니다.",
                 });
             }
         }
     } catch (err) {
         res.status(400).json({
-            fail: '다시 입력해주세요.',
+            fail: "다시 입력해주세요.",
         });
     }
 };
