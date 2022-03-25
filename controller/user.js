@@ -197,6 +197,11 @@ exports.modifyPassword = async (req, res, next) => {
     try {
         // Joi
         const userSchema = Joi.object({
+            password: Joi.string()
+                .pattern(
+                    /^[A-Za-z\d!@#$%^*_-]{8,16}$/
+                )
+                .required(),
             newPassword: Joi.string()
                 .pattern(
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
@@ -205,11 +210,8 @@ exports.modifyPassword = async (req, res, next) => {
             confirmNewPassword: Joi.ref("newPassword"),
         });
         const { user } = res.locals;
-        const { password } = req.body;
-        const newPassword = await userSchema.validateAsync(req.body.newPassword);
-        const confirmNewPassword = await userSchema.validateAsync(req.body.confirmNewPassword);
-        console.log("newPassword : ", newPassword);
-        console.log("confirmNewPassword : ", confirmNewPassword);
+        const { password, newPassword, confirmNewPassword } =
+            await userSchema.validateAsync(req.body);
 
         // AES 알고리즘 복호화
         const decryptedpassword = CryptoJS.AES.decrypt(
