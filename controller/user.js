@@ -7,6 +7,7 @@ require("dotenv").config();
 
 exports.userSignup = async (req, res) => {
     try {
+        console.log("test");
         // Joi
         const userSchema = Joi.object({
             userID: Joi.string()
