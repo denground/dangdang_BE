@@ -1,7 +1,6 @@
 const httpMocks = require('node-mocks-http');
 const mapController = require('../../controller/map');
 const Maps = require('../../schemas/map');
-const userModel = require('../../schemas/user');
 const Profile = require('../../schemas/profile');
 const locals = require('../data/locals.json');
 const profileFindOneFir = require('../data/profileFindOneFir.json');
@@ -11,7 +10,6 @@ const mapsCreateResponse = require('../data/mapsCreate(response).json');
 const mapsFind = require('../data/mapsFind.json');
 const mapsFindSort = require('../data/mapsFindSort.json');
 const mapsFindById = require('../data/mapsFindById.json');
-const profile = require('../../schemas/profile');
 
 Profile.findOne = jest.fn();
 Maps.find = jest.fn();
