@@ -199,7 +199,7 @@ exports.modifyPassword = async (req, res, next) => {
         // Joi
         const userSchema = Joi.object({
             password: Joi.string()
-                .pattern(/^[A-Za-z\d!@#$%^*_-]{8,16}$/)
+                .pattern(/^[A-Za-z\d!@#$%^*_-]$/)
                 .required(),
             newPassword: Joi.string()
                 .pattern(
