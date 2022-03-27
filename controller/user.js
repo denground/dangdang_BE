@@ -19,7 +19,13 @@ exports.userSignup = async (req, res) => {
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
                 )
                 .required(),
-            confirmPassword: Joi.ref('password'),
+            confirmPassword: Joi.string()
+                .pattern(
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+                )
+                .required(),
+            // ref('password')로 해놓으면 34~37번째 코드에 걸릴 일이 없음!
+            // 에러 내용도 fail: '비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.'
         });
 
         // 형식확인
@@ -37,22 +43,22 @@ exports.userSignup = async (req, res) => {
             userID,
         });
 
+        // 이미 가입되어 있는 아이디가 있는지 조회
+        if (checkUserID) {
+            return res.status(400).json({
+                fail: '이미 가입한 아이디입니다.',
+            });
+        }
+
         // 메일 조회
         const checkUserEmail = await User.findOne({
             email,
         });
 
-        // 동일한 메일이 있는지 조회
+        // 이미 가입되어 있는 이메일이 있는지 조회
         if (checkUserEmail) {
             return res.status(400).json({
-                fail: '이미 가입한 이메일입니다.',
-            });
-        }
-
-        // 아이디가 있는 경우
-        if (checkUserID) {
-            return res.status(400).json({
-                fail: '이미 있는 아이디입니다.',
+                fail: '이미 있는 이메일입니다.',
             });
         }
 
@@ -143,7 +149,6 @@ exports.login = async (req, res) => {
             success: `${checkUser.nickname}님 환영합니다!🐶`,
         });
     } catch (err) {
-        console.log(err);
         res.status(400).json({
             fail: '입력창을 확인 해주세요.',
         });
@@ -199,14 +204,18 @@ exports.modifyPassword = async (req, res, next) => {
         // Joi
         const userSchema = Joi.object({
             password: Joi.string()
-                .pattern(/^[A-Za-z\d!@#$%^*_-]$/)
+                // .pattern(/^[A-Za-z\d!@#$%^*_-]$/)
                 .required(),
             newPassword: Joi.string()
                 .pattern(
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
                 )
                 .required(),
-            confirmNewPassword: Joi.ref('newPassword'),
+            confirmNewPassword: Joi.string()
+                .pattern(
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*_-])[A-Za-z\d!@#$%^*_-]{8,16}$/
+                )
+                .required(),
         });
         const { user } = res.locals;
         const { password, newPassword, confirmNewPassword } =
@@ -247,13 +256,17 @@ exports.modifyPassword = async (req, res, next) => {
             success: '정보가 수정되었습니다.',
         });
     } catch (error) {
+        console.log('error', error);
         let joiError = error.details[0].message;
-        if (joiError.includes('password')) {
+        // joiError.includes('password') => joiError.includes('newPassword') 변경함
+        // 기존 비밀번호에 특수문자 안 들어온 채로 임시비밀번호 전송된 경우 변경할 때 에러메시지가 잘못 나옴
+        // 위에서 기존 비밀번호와 locals 비밀번호 검증 로직이 있으니 기존 비밀번호 틀려도 변경되는 문제 발생하지 않음
+        if (joiError.includes('newPassword')) {
             res.status(400).json({
                 fail: '비밀번호는 최소 8자 이상, 16자 이하의 영어 대소문자 및 숫자, 특수문자(!@#$%^*_-)를 포함해야 합니다.',
             });
-            next(error);
         }
+        next(error);
     }
 };
 
