@@ -52,18 +52,18 @@ describe('회원가입', () => {
         User.findOne.mockResolvedValue(signup2);
         await userController.userSignup(req, res, next);
         expect(res._getJSONData()).toStrictEqual({
-            fail: '이미 가입한 아이디입니다.',
+            fail: '이미 가입한 아이디 또는 이메일입니다.',
         });
     });
 
-    // test('이미 가입되어 있는 이메일인 경우 에러 발생!', async () => {
-    //     req.body = signup3;
-    //     User.findOne.mockResolvedValue(signup3);
-    //     await userController.userSignup(req, res, next);
-    //     expect(res._getJSONData()).toStrictEqual({
-    //         fail: '이미 있는 이메일입니다.',
-    //     });
-    // });
+    test('이미 가입되어 있는 이메일인 경우 에러 발생!', async () => {
+        req.body = signup3;
+        User.findOne.mockResolvedValue(signup3);
+        await userController.userSignup(req, res, next);
+        expect(res._getJSONData()).toStrictEqual({
+            fail: '이미 가입한 아이디 또는 이메일입니다.',
+        });
+    });
 
     test('이메일 인풋값이 형식에 맞지 않을 때 에러 발생!', async () => {
         req.body = signup6;
