@@ -1,0 +1,60 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: prtest
+
+on:
+    pull_request:
+        branches: [test]
+
+jobs:
+    build:
+        runs-on: ubuntu-18.04
+
+        strategy:
+            matrix:
+                node-version: [14.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+        steps:
+            - name: Checkout source code.
+              uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: create env file
+              working-directory: ../dangdang_BE
+              run: |
+                  touch .env
+                  cat << EOF >> .env
+                  ${{ secrets.ENV }}
+            - name: npm install
+              working-directory: ../dangdang_BE
+              run: |
+                  npm install jest supertest -D
+            - name: npm test
+              working-directory: ../dangdang_BE
+              run: |
+                  npm test
+            - name: if fail
+              uses: actions/github-script@0.2.0
+              with:
+                  github-token: ${{github.token.pr_test_token}}
+                  script: |
+                      const ref = "${{github.ref}}"
+                      const pull_number = Number(ref.split("/")[2])
+                      await github.pulls.createReview({
+                        ...context.repo,
+                        pull_number,
+                        body:"테스트코드를 다시 확인해주세요. ",
+                        event: "REQUEST_CHANGES"
+                      })
+                      await github.pulls.update({
+                        ...context.repo,
+                        pull_number,
+                        state: "closed"
+                      })
+              if: failure()
