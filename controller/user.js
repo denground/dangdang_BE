@@ -61,7 +61,7 @@ exports.userSignup = async (req, res) => {
         });
 
         res.status(200).json({
-            success: '헤헷',
+            success: '회원가입이 완료되었습니다🐶',
         });
     } catch (error) {
         let joiError = error.details[0].message;
