@@ -28,7 +28,7 @@ exports.userSignup = async (req, res) => {
 
         if (password !== confirmPassword) {
             return res.status(400).json({
-                fail: '비밀번호가 다르게 입력됐습니다.',
+                fail: '비밀번호가 다르게 입력됐습니다라라.',
             });
         }
 
