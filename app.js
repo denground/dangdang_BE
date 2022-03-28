@@ -61,10 +61,7 @@ app.use(express.urlencoded({ extended: true }));
 app.disable("x-powered-by");
 
 // cors 정책
-app.use(cors({
-    origin: "https://denground.com",
-    credentials: true,
-}));
+app.use(cors());
 
 app.use(cookieParser(process.env.COOKIE_SECRET))
 // express-session
