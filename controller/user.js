@@ -101,7 +101,7 @@ exports.login = async (req, res) => {
         });
         if (checkUser === null) {
             return res.status(400).json({
-                fail: '입력창을 다시 확인하세요.',
+                fail: '회원정보가 존재하지 않습니다. 가입 후 로그인하세요.',
             });
         }
 

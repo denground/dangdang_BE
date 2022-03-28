@@ -99,7 +99,7 @@ describe('로그인', () => {
         User.findOne.mockResolvedValue(null);
         await userController.login(req, res, next);
         expect(res._getJSONData()).toStrictEqual({
-            fail: '입력창을 다시 확인하세요.',
+            fail: '회원정보가 존재하지 않습니다. 가입 후 로그인하세요.',
         });
     });
     test('비밀번호 틀린 경우 에러 발생!', async () => {
