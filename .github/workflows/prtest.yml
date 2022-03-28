@@ -4,10 +4,8 @@
 name: prtest
 
 on:
-    push:
-        branches: [test]
     pull_request:
-        branches: [test]
+        branches: [main]
 
 jobs:
     build:
