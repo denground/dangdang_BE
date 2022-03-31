@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     const [tokenType, tokenValue] = authorization.split(' ');
 
     if (tokenType != 'Bearer') {
-        res.status(401).send({
+        res.status(401).json({
             errorMessage: '로그인 후 사용하시오',
         });
         return;
@@ -33,7 +33,7 @@ module.exports = (req, res, next) => {
             });
     } catch (error) {
         //jwt 토큰이 유효하지 않은 경우
-        return res.status(401).send({
+        return res.status(401).json({
             user: null,
             errorMessage: '로그인 후 사용하시오',
         });
