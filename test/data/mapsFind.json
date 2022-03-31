@@ -1,0 +1,23 @@
+[
+    {
+        "_id": "623e3d4614c19136fd096f06",
+        "time": "00:06",
+        "distance": "2.1",
+        "userID": "gitak",
+        "createdAt": "2022-03-25T22:08:06.305Z"
+    },
+    {
+        "_id": "623e3e17583459be4bbc3e0f",
+        "time": "00:08",
+        "distance": "4.3",
+        "userID": "gitak",
+        "createdAt": "2022-03-25T22:11:35.015Z"
+    },
+    {
+        "_id": "623e3e7a583459be4bbc3e15",
+        "time": "00:04",
+        "distance": "4.3",
+        "userID": "gitak",
+        "createdAt": "2022-03-25T22:13:14.592Z"
+    }
+]
