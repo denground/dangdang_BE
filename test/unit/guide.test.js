@@ -1,64 +1,28 @@
 const guideController = require('../../controller/guide');
-const guideModel = require('../../schemas/guide');
+const Guide = require('../../schemas/guide');
+const guideFind = require('../data/guideFind.json');
+const guideFindById = require('../data/guideFindById.json');
 const httpMocks = require('node-mocks-http');
 
-const postNumber = 'testCode';
-
-guideModel.find = jest.fn();
-guideModel.findById = jest.fn();
+Guide.find = jest.fn();
+Guide.findById = jest.fn();
 
 beforeEach(() => {
-  req = httpMocks.createRequest();
-  res = httpMocks.createResponse();
-  next = jest.fn();
+    req = httpMocks.createRequest();
+    res = httpMocks.createResponse();
+    next = jest.fn();
 });
 
-describe('Guide Controller GET', () => {
-  test('should have a getGuide function', () => {
-    expect(typeof guideController.guideMain).toBe('function');
-  });
-  test('should call guideModel.find({})', async () => {
-    await guideController.guideMain(req, res, next);
-    expect(guideModel.find).toHaveBeenCalledWith({});
-  });
-  test('should return 200 response', async () => {
-    await guideController.guideMain(req, res, next);
-    expect(res.statusCode).toBe(200);
-    expect(res._isEndCalled).toBeTruthy();
-  });
-  test('should return json body in response', async () => {
-    await guideController.guideMain(req, res, next);
-    expect(res._getJSONData).toBeTruthy();
-  });
-  test('should handle error', async () => {
-    const errorMessage = { message: 'Error' };
-    const rejectedPromise = Promise.reject(errorMessage);
-    guideModel.find.mockReturnValue(rejectedPromise);
-    await guideController.guideMain(req, res, next);
-    expect(next).toHaveBeenCalledWith(errorMessage);
-  });
-});
-
-describe('Guide Controller GetById', () => {
-  test('should have a getGuideById', () => {
-    expect(typeof guideController.guideDetail).toBe('function');
-  });
-  test('should call productModel.findeById', async () => {
-    req.params.postNumber = postNumber;
-    await guideController.guideDetail(req, res, next);
-    expect(guideModel.findById).toBeCalledWith(postNumber);
-  });
-  test('should return json body and response code 200', async () => {
-    await guideController.guideDetail(req, res, next);
-    expect(res.statusCode).toBe(200);
-    expect(res._getJSONData).toBeTruthy();
-    expect(res._isEndCalled).toBeTruthy();
-  });
-  test('should handle Error', async () => {
-    const errorMessage = { message: 'Error' };
-    const rejectedPromise = Promise.reject(errorMessage);
-    guideModel.findById.mockReturnValue(rejectedPromise);
-    await guideController.guideDetail(req, res, next);
-    expect(next).toHaveBeenCalledWith(errorMessage);
-  });
+describe('가이드 정보 출력', () => {
+    test('메인 화면에는 모든 가이드 항목에 대한 title과 image가 나온다!', async () => {
+        Guide.find.mockReturnValue(guideFind);
+        await guideController.guideMain(req, res, next);
+        expect(res._getJSONData()).toStrictEqual(guideFind);
+    });
+    test('디테일 화면에는 각 항목에 대하여 guideTitleImage를 제외한 모든 자료가 나온다!', async () => {
+        req.params.postNumber = '62237919d9354720193cc7b6';
+        Guide.findById.mockReturnValue(guideFindById);
+        await guideController.guideDetail(req, res, next);
+        expect(res._getJSONData()).toStrictEqual(guideFindById);
+    });
 });

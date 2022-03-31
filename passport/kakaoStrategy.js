@@ -3,7 +3,6 @@ const kakaoStrategy = require('passport-kakao').Strategy
 const User = require('../schemas/user')
 
 module.exports = (passport) => {
-    console.log("passport 진입");
     passport.use('kakao', new kakaoStrategy({
         clientID: process.env.CLIENTID,
         callbackURL: process.env.CALLBACKURL,
