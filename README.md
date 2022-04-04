@@ -11,7 +11,6 @@
   <img src='https://img.shields.io/badge/Express-v4.17.3-black?logo=Express'/>
   <img src='https://img.shields.io/badge/MongoDB-version4.2.19-green?logo=mongodb'/>
   <img src='https://img.shields.io/badge/prettier-v2.5.1-pink?logo=prettier'/>
-  <img src='https://img.shields.io/badge/jest-v27.5.1-brown?logo=jest'/>
   <img src='https://img.shields.io/badge/Buffer-v6.0.3-white?logo=Buffer'/>
   <img src='https://img.shields.io/badge/React-v17.0.2-blue?logo=React'/>
   <img src='https://img.shields.io/badge/Redux-v4.1.2-purple?logo=Redux'/>
