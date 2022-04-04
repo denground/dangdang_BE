@@ -23,20 +23,20 @@
 ## 🎉 댕댕한바퀴 서비스 소개
 ### 🚶‍♂️ 산책 전, 날씨 및 필수용품을 체크하고 지금 바로 산책하세요!:
 > - 본인의 동네 날씨를 알 수 있어 산책 여부를 편하게 결정할 수 있습니다!
-<img width='70%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/2.png'>
+<img width='40%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/2.png'>
 
 ### 🚶‍♂️ 실시간으로 산책 기록을 확인하세요!
 > - 본인의 이동경로와 소요시간을 실시간으로 확인할 수 있습니다!
 > - 반려동물의 식수, 소변, 대변, 위험요소를 실시간으로 기록할 수 있습니다!
-<img width='70%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/5.png'>
+<img width='40%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/5.png'>
 
 ### 🚶‍♂️ 매일매일 기록되는 산책일지!
 > - 본인이 산책하며 기록한 여러 요소들을 날짜별로 확인하세요!
-<img width='70%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/4.png'>
+<img width='40%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/4.png'>
 
 ### 🚶‍♂️ 갑작스레 상황이 발생했다면 돌발가이드로 대응이 가능합니다!
 > - 산책 전후로 발생할 수 있는 다양한 상황들에 대한 가이드를 확인해 보세요!
-<img width='70%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/3.png'>
+<img width='40%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/3.png'>
 
 기술 및 고민 정리 - WIKI (링크 걸기)
 
