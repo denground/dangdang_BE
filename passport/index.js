@@ -3,7 +3,6 @@ const passport = require('passport')
 const User = require('../schemas/user')
 
 module.exports = () => {
-    console.log("index.js 진입");
     // 세션에 사용자 정보 저장
     passport.serializeUser((user, done) => {
         done(null, {id: user.userID, accessToken: user.accessToken})
