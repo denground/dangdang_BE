@@ -5,7 +5,7 @@
 
 
 
-##사용한 기술 스택들
+## 사용한 기술 스택들
 <p align='center'>
   <img src='https://img.shields.io/badge/Node-version16.14.2-green?logo=Node.js'/>
   <img src='https://img.shields.io/badge/Express-v4.17.3-black?logo=Express'/>
