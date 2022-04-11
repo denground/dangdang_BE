@@ -15,6 +15,10 @@
   <img src='https://img.shields.io/badge/Jest-v27.5.1-pink?logo=jest'/>
 </p>
 
+## 바로가기
+- 사이트 바로가기 : https://denground.com
+- 발표 영상 : https://www.youtube.com/watch?v=0JcDixFHq-c
+
 ## 🎉 댕댕한바퀴 서비스 소개
 
 ### 시연 영상
@@ -33,7 +37,10 @@ https://user-images.githubusercontent.com/97418591/162681339-d0d530af-7a3c-48d1-
 ### 4. 갑작스레 상황이 발생했다면 돌발가이드로 대응이 가능합니다!
 <details> <summary>산책 전후로 발생할 수 있는 다양한 상황들에 대한 가이드를 확인해 보세요!</summary> <img width='25%' src='https://dangdangss-s3-bucket.s3.ap-northeast-2.amazonaws.com/3.png'> </details>
 
-### 기술 및 고민 정리 - WIKI (링크 걸기)
+### 기술 및 고민 정리
+<details><summary>1. 반장훈</summary> 냉무 </details>
+<details><summary>2. 나기탁</summary> 냉무 </details>
+<details><summary>3. 이동주</summary> 냉무 </details>
 
 ### 서비스 아키텍처   
 
