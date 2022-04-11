@@ -6,10 +6,13 @@
 
 
 <p align='center'>
-  <img src='https://img.shields.io/badge/Node-version16.14.2-green?logo=Node.js'/>
+  <img src='https://img.shields.io/badge/Javascript-ES6-yellow?logo=javascript'/>
+  <img src='https://img.shields.io/badge/Node.js-v16.14.2-green?logo=Node.js'/>
   <img src='https://img.shields.io/badge/Express-v4.17.3-black?logo=Express'/>
-  <img src='https://img.shields.io/badge/MongoDB-version4.2.19-green?logo=mongodb'/>
+  <img src='https://img.shields.io/badge/MongoDB-v4.2.19-green?logo=mongodb'/>
   <img src='https://img.shields.io/badge/prettier-v2.5.1-pink?logo=prettier'/>
+  <img src='https://img.shields.io/badge/Passport-v0.5.2-green?logo=passport'/>
+  <img src='https://img.shields.io/badge/Jest-v27.5.1-pink?logo=jest'/>
 </p>
 
 ## 🎉 댕댕한바퀴 서비스 소개
